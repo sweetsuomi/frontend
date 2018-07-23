@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar class="navbar-historic-orders">
+    <ion-title>Pedidos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>-->
+  <article>
+    <section class="historic-orders-list">
+      <div class="historic-orders-elements" ion-button>
+        <div class="date-historic-orders">
+          <h4 class="date-historic-orders-title" ion-text color="secondary">12-12-2017 - 14:30</h4>
+          <p class="name-historic-orders-title" ion-text color="secondary">Lorem Ipsum</p>
+          <p ion-text color="secondary">23,50€</p>
+        </div>
+      </div>
+
+      <div class="historic-orders-status-elements">
+        <ion-checkbox checked="true" end></ion-checkbox>
+      </div>
+    </section>
+  </article>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Intolerancias</ion-title>
+    <ion-buttons class="button-add-intolerances" end>
+      <button (click)="pushNewIntolerancePage()" ion-button>
+				<ion-icon name="add"></ion-icon>
+			</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <article class="container">
+    <section class="admin-intolerances-group">
+      <div class="intolerances-group-elements" *ngIf="intoleranceList">
+        <div class="intolerances-element" *ngFor="let intolerance of objectKeys(intoleranceList)">
+          <div (click)="pushIntolerancePage(intolerance)">
+            <img src="{{cloudFrontURL}}intolerances/{{intoleranceList[intolerance]._id}}.png" alt="{{intoleranceList[intolerance].name}}" />
+            <div class="intolerances-info">
+              <h4>{{intoleranceList[intolerance].name}}</h4>
+            </div>
+            
+          </div>
+          <ion-icon class="icon-trash-intolerances" name="trash" ion-button (click)="deleteIntolerance(intolerance)"></ion-icon>
+        </div>
+        
+      </div>
+    </section>
+  </article>
+</ion-content>

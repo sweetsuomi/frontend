@@ -1,0 +1,110 @@
+page-register {
+
+}
+
+.slide-register {
+	background-color: #f1f1f1;
+}
+
+.slide-register-container {
+	background-color: #fff;
+	width: 90%;
+	margin: 0 auto 20px;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	flex-direction:column; 
+	justify-content: center;
+	padding: -30% 0 0 0;
+	height: 360px;
+  box-shadow: 0 2px 15px rgba(100, 100, 100, 0.1), 0 2px 5px rgba(100, 100, 100, 0.2);
+}
+
+.slide-register-container h2 {
+	color: #ff9500;
+	font-size: 115%;
+	font-weight: 900;
+    margin-bottom: 1.6rem;
+}
+
+.slide-register-container div p {
+	padding: 0 7%;
+	font-size: 16px;
+    color: #444;
+}
+
+.box-text-register ion-input {
+	font-size: 14px;
+}
+
+.slide-register-container ion-list {
+	width: 85%;
+	margin: 0 auto;
+}
+
+.ion-list-register-box {
+	margin-top: 0%;
+	width: 100%;
+}
+
+.button-box {
+//	padding: 50% 0 0 0;
+	width: 100%;
+/*	position: absolute;
+  bottom: 17%;*/
+  margin-bottom: 10px;
+}
+
+.button-box button {
+	background-color: #333;
+	color: #fff;
+	padding: 3% 10%;
+	border-radius: 20px;
+	font-size: 80%;
+	display: inline-flex;
+}
+
+.arrow-forward{
+	display: inline-flex;
+	font-size: 1em;
+	margin-left: 12%;
+}
+
+.box-text-register .item-md {
+  border-bottom: 1px solid #dedede;
+}
+
+.box-text-register .item-block:first-child {
+  border-top: 0;
+}
+
+.box-text-register > .item-checkbox {
+  border-bottom: 0;
+}
+
+.box-text-register > .item-checkbox .label {
+  font-size: 14px;
+  color: #666;
+  width: 100%;
+}
+
+.login {
+  font-size: 14px;
+  color: #ff9500;
+  /*position: absolute;
+  bottom: 50px;*/
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.box-text-register > .item-checkbox .checkbox-md {
+  margin: 9px 16px 9px 4px;  
+}
+
+.navbar-register .toolbar-title-md {
+    width: 60%;
+}
+
+.login-box {
+  margin-bottom: 60px;
+}

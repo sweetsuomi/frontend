@@ -1,0 +1,26 @@
+<ion-menu [content]="mycontent" type="overlay">
+	<ion-header>
+		<ion-toolbar>
+			<ion-title>Menu</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+			<button class="button-menu-list" ion-item *ngIf="!isLogged" (click)="navigateToLogin()">
+				<ion-icon class="button-menu" name="contact"></ion-icon> Iniciar sesión </button>
+			<button class="button-menu-list" ion-item *ngIf="!isLogged" (click)="navigateToRegister()">
+				<ion-icon class="button-menu" name="contact"></ion-icon> Registrarse </button>
+			<button class="button-menu-list" ion-item *ngIf="isAdmin" (click)="navigateToAdmin()">
+				<ion-icon class="button-menu" name="contact"></ion-icon> Administrador </button>
+			<button class="button-menu-list" ion-item *ngIf="isLogged && !isAdmin" (click)="navigateToOrders()">
+				<ion-icon class="button-menu" name="contact"></ion-icon> Pedidos </button>
+			<button class="button-menu-list" ion-item (click)="navigateToAbout()">
+				<ion-icon class="button-menu" name="globe"></ion-icon> Términos de uso </button>
+			<button class="button-menu-list" ion-item (click)="navigateToFeedback()">
+				<ion-icon class="button-menu" name="warning"></ion-icon> Sugerencias </button>
+			<button class="button-menu-list" ion-item *ngIf="isLogged" (click)="logout()">
+				<ion-icon class="button-menu" name="power"></ion-icon> Logout </button>
+		</ion-list>
+	</ion-content>
+</ion-menu>
+<ion-nav #mycontent></ion-nav>

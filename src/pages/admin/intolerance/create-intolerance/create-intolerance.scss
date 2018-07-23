@@ -1,0 +1,85 @@
+page-create-intolerance {
+
+}
+
+.navbar-create-intolerance ion-title {
+  padding-right: 50px;
+}
+
+.text-create-intolerance {
+  margin: 0 auto 60px;
+  width: 90%;
+} 
+
+.photo-create-intolerance {
+  width: 100%;
+  height: 40vw;
+  background-color: #e9e9e9;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.photo-create-intolerance ion-icon {
+  font-size: 40px;
+  color: #333;
+  margin: 0 auto;
+}
+
+.photo-create-intolerance .photo-create-intolerance-button, .photo-create-intolerance .button-ios {
+  width: 180px;
+  background-color: #f9f9f9;
+  margin: 10px auto 0;
+  box-shadow: 0 2px 15px rgba(100, 100, 100, 0.1), 0 1px 0 rgba(100, 100, 100, 0.2);
+  border-radius: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.photo-create-intolerance .photo-create-intolerance-button h3 {
+  color: #333;
+  font-size: 16px;
+  margin: 5px;
+  text-transform: initial;
+}
+
+.text-create-intolerance input, .text-create-intolerance textarea {
+  color: #ff9500;
+    padding-left: 10px;
+}
+
+.buton-intolerance {
+  display: inline-flex;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.button-save-intolerance {
+  background-color: #ff9500;
+  color: #fff;
+  width: 100%;
+  height: 8vh;
+  font-size: 130%;
+  margin: 0;
+  border-radius: 0;
+}
+
+.text-create-intolerance .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .text-create-intolerance .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: #999;
+    box-shadow: unset;
+} 
+
+.photo-create-intolerance img {
+    width: 30%;
+    margin: 15px auto;
+}
+
+.img-intolerances-create-intolerances {
+        width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    
+}
+

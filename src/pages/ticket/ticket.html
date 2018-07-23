@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>ticket</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<div class="box-ticket" *ngIf="price">
+  	<p class="color-text">¡<span class="highlight-text">GRACIAS</span>!</p>
+    <p><strong>TU PEDIDO HA SIDO RESERVADO</strong></p>
+    <p>El precio total del pedido ha sido <br/><span class="highlight-text">{{price | number:'1.2'}} €</span></p>
+		<div class="time-table-ticket">
+			<p>Puedes pasar a recogerlo a las</p>
+			<p class="highlight-text">{{date}}</p>
+		</div>
+		<div class="restaurant-address">
+			<a>
+				<ion-icon class="pin-icon" name="pin"></ion-icon> 
+			</a> 
+			<div class="restaurant-address-tlf">
+				<p>Calle Condesa de Venadito</p>
+				<p>3b - 28027 Madrid</p>
+				<p>Móvil: 646 74 38 13</p>
+				<p>Teléfono:  91 361 65 95</p>
+			</div>
+		</div>
+  </div>
+  <div class="borderimg2"></div>
+	<button ion-button class="button-md button-ticket" (click)="goToHome()">Volver al menu</button>
+</ion-content>
+

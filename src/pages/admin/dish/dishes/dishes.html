@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Lista de Platos</ion-title>
+        <ion-buttons class="button-add-dishes" end>
+            <button (click)="pushNewCreateDishPage()" ion-button>
+				<ion-icon name="add"></ion-icon>
+			</button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="dishes-page">
+    <article class="container">
+        <section class="admin-dishes-group" *ngIf="dishList">
+            <div class="dishes-group-elements" *ngFor="let dish of objectKeys(dishList)">
+                <div class="dishes-element" (click)="goToDishDetail(dishList[dish]._id)">
+                    <div>
+                        <img src="{{cloudFrontURL}}dish/{{dishList[dish]._id}}.png?{{currentDateTime}}" alt="{{dishList[dish].title}}" />
+                        <div class="dishes-info">
+                            <h4>{{dishList[dish].title}}</h4>
+                            <p>Categoría: {{dishList[dish].category.name}}</p>
+                            <p>Precio: {{dishList[dish].price | number:'1.2'}} €</p>
+                        </div>
+                    </div>
+                </div>
+                <ion-icon class="icon-trash-dishes" name="trash" *ngIf="isEnabled(dishList[dish]._id)" (click)="deleteDish(dishList[dish]._id)" ion-button></ion-icon>
+                <ion-icon class="icon-trash-dishes-disabled" name="trash" *ngIf="!isEnabled(dishList[dish]._id)" ion-button></ion-icon>
+            </div>
+        </section>
+    </article>
+</ion-content>

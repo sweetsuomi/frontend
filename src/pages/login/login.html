@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="container-login">
+  <img src="./assets/img/register_img.jpeg" alt="register_img" />
+  <img class="register_logo" src="./assets/img/logo_img.png" alt="register_logo" />
+
+  <ion-list class="login-text-box">
+    <ion-item>
+      <ion-input type="text" placeholder="Email" [(ngModel)]="authProvider.auth.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Contraseña" [(ngModel)]="authProvider.auth.password"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button class="button-md button-login" (click)="login()">Iniciar sesión</button>
+
+  <div>
+    <p class="problems" (click)="goToRegister()">¿Todavía no estás registrado?</p>
+  </div>
+
+</ion-content>

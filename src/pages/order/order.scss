@@ -1,0 +1,195 @@
+age-order {}
+
+.box-ticket-order {
+  width: 100%;
+  margin: 0;
+  background-color: $background;
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-bottom: 55px;
+}
+
+.box-ticket-order ion-list {
+  width: 100%;
+  margin: -1px 0 3px;
+}
+
+.box-order,
+.box-info {
+	width: 100%;
+  padding: 0 20px;
+}
+
+
+.title-order {
+  font-weight: 900;
+  color: #333;
+  font-size: 16px;
+  text-align: left;
+}
+
+.box-item {
+  padding: 0 20px;
+  display: flex;
+}
+
+.box-item img {
+  width: 30%;
+}
+
+.box-item-title {
+  display: flex;
+  height: 10vh;
+}
+
+.description-text-item {
+  display: flex;
+	width: 65%;
+  margin-left: 15px;
+  flex-direction: column;
+}
+
+.description-text {
+  color: #666;
+  font-size: 14px;
+}
+
+.text-limited {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title-item {
+  font-size: 16px !important;
+  color: #ff9500;
+  font-weight: 500 !important;
+}
+
+.box-button-pedido {
+  z-index: 100;
+  background-color: #ff9500;
+  width: 100%;
+  margin: 0;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  padding: 8%;
+  border-radius: 0;
+}
+
+.box-button-pedido .button-inner {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.date-text-info {
+  width: 100%;
+  color: #666;
+}
+
+.picker-wrapper .picker-toolbar {
+  background-color: #ff9500;
+  margin-bottom: 10px;
+}
+
+.ion-item-sliding {
+  width: 100%;
+}
+
+.change-quantity-box .button-inner,
+.delete-box .button-inner {
+  color: #fff;
+  font-weight: 400;
+}
+
+.delete-box {
+  background-color: #ff4543;
+}
+
+ion-item-sliding .box-item {
+  margin: 0;
+}
+
+.box-item-price {
+  text-align: right;
+}
+
+.price-text {
+  color: #333 !important;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.price-total-text {
+  text-align: right;
+  font-size: 18px;
+  color: #ff9500;
+  font-weight: 700;
+  margin: 0;
+  padding: 5px 20px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(100, 100, 100, 0.1), 0 1px 0 rgba(100, 100, 100, 0.2);
+}
+
+.box-item .item-inner {
+  padding-right: 0 !important;
+}
+
+.box-item .item-inner .label{
+  margin: 13px 0;
+}
+
+.address-text {
+  margin: 0 20px 0;
+}
+
+.info-order .ion-ios-pin-outline {
+  color: #ff9500;
+    font-weight: 600;
+}
+
+.address-box {
+  width: 100%;
+  display: flex;
+}
+
+.address-box p {
+  margin-left: 20px;
+}
+
+.navbar-order .button-inner {
+  color: white;
+}
+
+.navbar-order .toolbar-title-md {
+    width: 70%;
+    padding: 0 40px 0 0;
+}
+
+.change-quantity-option {
+    background-color: unset;
+    box-shadow: none;
+    padding: 0 !important;
+}
+
+.change-quantity-option .button-inner {
+       color: #ff9500; 
+        text-transform: none;
+}
+
+.delete-option {
+    background-color: #ff4543;
+    box-shadow: none;
+}
+
+.option-order {
+    justify-content: space-between;
+    display: flex;
+    margin: 8px 0 0;
+}
+

@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar class="navbar-update-intolerance">
+        <ion-title>Actualizar intolerancia</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <div class="info-intolerances" *ngIf="intolerance">
+        <div class="img-intolerances">
+            <input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
+            <img src="{{imageUrl.base64}}" alt="pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'" />
+        </div>
+        <div class="text-update-intolerance">
+            <ion-item>
+                <ion-label stacked color="dark">Título</ion-label>
+                <ion-input type="title" [(ngModel)]="intolerance.name"> Titulo de la categoría </ion-input>
+            </ion-item>
+        </div>
+    </div>
+    <div class="buton-intolerance">
+        <button class="button-save-intolerance" (click)="updateIntolerance()" ion-button>Guardar</button>
+    </div>
+</ion-content>

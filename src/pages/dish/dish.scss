@@ -1,0 +1,127 @@
+page-dish {
+
+}
+
+.container-dishpage .scroll-content {
+    background-color: #fff;
+    padding-bottom: 60px;
+}
+
+.navbar-dish .button-inner {
+  color: #fff;
+}
+
+.navbar-dish .toolbar-title-md {
+  width: 70%;
+  margin-right: 20px;
+}
+
+.dish-main-picture {
+	width: 100%;
+}
+
+.dish-content {
+	width: 85%;
+	margin: 0 auto;
+}
+
+.dish-main-info {
+	margin-top: 3%;
+    width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	& > h2 {
+		margin-left: 8%;
+		font-size: 20px;
+        color: #333;
+        width: 60%;
+        font-weight: 700;
+	}
+	& > div {
+		background-color: orange;
+		min-width: 80px;
+		text-align: center;
+		color: white;
+		border-radius: 50px 0 0 50px;
+        font-weight: 700;
+        font-size: 18px;
+        & > p {
+          margin: 12px 0;
+      }
+	}
+}
+
+.dish-category>p {
+    margin-top: 0;
+    color: #999;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.dish-description {
+	font-size: 14px;
+	color: #777;
+	font-weight: 500;
+}
+
+.box-intolerance {
+  display: flex;
+  width: 100%
+}
+
+.dish-intolerances {
+	width: 15%;
+	& > img {
+		width: 80%;
+		height: 10vw;
+		margin: 0 7px;
+	}
+	& > img:first-child {
+		margin-left: 0px;
+	}
+}
+
+.dish-cta button {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    background-color: #ff9500;
+    width: 100%;
+    height: 8vh;
+    font-size: 130%;
+}
+
+.dish-availability > p {
+    margin-top: 2%;
+    color: #ff9500;
+    font-size: 16px;
+      font-weight: 500;
+}
+
+.home-button-order h4 {
+  color: #fff;
+  font-weight: 700;
+}
+
+.home-button-order {
+  z-index: 100;
+}
+
+.button-inner {
+    color: white;
+}
+
+
+.toast-container {
+  background-color: #ff4543;
+  font-weight: 700;
+}
+
+
+ion-toast {
+  margin-top: 15px;
+}
+

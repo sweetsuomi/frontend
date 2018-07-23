@@ -1,0 +1,44 @@
+page-feedback {
+
+}
+.content-opinion {
+  padding: 10% 5%;
+}
+
+.dish-cta button {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    background-color: #ff9500;
+    width: 100%;
+    height: 8vh;
+    font-size: 130%;
+    font-weight: 600;
+}
+
+.item-input ion-textarea {
+    margin: 0;
+}
+
+.text-opinion {
+  font-size: 20px;
+  font-weight: 700;
+  color: #666;
+}
+
+.item-md, .item-ios {
+  padding-left: 0;
+  margin: 3% 0;  
+}
+
+.item-input .label-md-primary, .item-input-has-focus .label-md[stacked], .input-has-focus .label-md[stacked], .item-input .label-ios-primary {
+  color: #ff9500;
+}
+
+.navbar-feedback .button-inner {
+  color: #fff;
+}
+
+.navbar-feedback .toolbar-title-md {
+    margin-right: 50px;
+}

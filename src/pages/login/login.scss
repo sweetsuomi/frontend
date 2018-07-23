@@ -1,0 +1,48 @@
+.container-login {
+  background-color: rgb(245, 247, 255);
+}
+
+.register_logo {
+	width: 80%;
+	display: flex;
+	align-items: center;
+	margin: -60px auto 20px;
+}
+
+.login-text-box {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.login-input {
+	border-bottom: 1px solid #ff9500;
+}
+
+.button-login {
+	background-color: #ff9500;
+	width: 200px;
+	border-radius: 20px;
+	display: flex;
+	margin: 50px auto 0;
+}
+
+.problems {
+	color: #ff9500;
+	font-weight: 500;
+	text-align: center;
+	margin-top: 20px; 
+}
+
+
+.container-login > .scroll-content, .container-login > .scroll-content .item-block {
+  background-color : rgb(245, 247, 255);
+}
+
+.login-text-box > .item-block:first-child {
+  border-top: 0;
+}
+
+.login-text-box > .item-md {
+  border-bottom: 1px solid #dedede;
+}
+    

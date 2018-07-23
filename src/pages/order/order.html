@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar class="navbar-admin-order">
+    <ion-title><img src="./assets/logo/logo-home.svg" alt="logo_home" /></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <div class="box-ticket-admin-order" *ngIf="order">
+    <ion-list *ngFor="let element of order.dishes">
+      <ion-item-sliding #slidingItem>
+        <ion-item class="box-item">
+          <div class="box-item-title">
+            <img src="{{cloudFrontURL}}dish/{{element.dish._id}}.png" alt="{{element.dish.title}}" class="img-dish-admin-order" />
+            <div class="description-text-item">
+              <h4 class="title-item text-limited" ion-text>{{element.dish.title}}...</h4>
+              <h5 class="description-text text-limited">{{element.dish.description}}...</h5>
+            </div>
+          </div>
+          <div class="box-item-price">
+            <p class="description-text" ion-text color="secondary">{{element.dish.price}}€ x {{element.quantity}}</p>
+            <p class="price-text">{{element.dish.price * element.quantity | number:'1.2'}}€</p>
+          </div>
+
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+    <p class="price-total-text" *ngIf="order">Total: {{order.price | number:'1.2'}}€</p>
+
+    <div class="box-info">
+      <div class="info-admin-order" *ngIf="order.note">
+        <h3 class="title-admin-order">NOTA</h3>
+        <ion-label stacked color="primary"></ion-label>
+        <ion-item>
+          <ion-textarea disabled rows="2" value="{{order.note}}"></ion-textarea>
+        </ion-item>
+      </div>
+
+      <div class="info-admin-order">
+        <h3 class="title-admin-order">HORA DE RECOGIDA</h3>
+        <ion-item>
+          <ion-datetime disabled class="date-text-info" displayFormat="HH:mm" [(ngModel)]="order.date"></ion-datetime>
+        </ion-item>
+      </div>
+			
+			<div class="info-shopping-cart">
+				<h3 class="title-shopping-cart">RECOGER EN LOCAL</h3>
+				<div class="address-box">
+					<ion-icon name="ios-pin-outline"></ion-icon>
+					<p class="description-text address-text">Calle Condesa de Venadito 3b - 28027 Madrid - Tel: 646 74 38 13</p>
+				</div>
+			</div>
+			
+			<div class="option-shoppingcart" *ngIf="checkUpdate()">
+      	<p class="delete-option" ion-button (click)="deleteOrder()">Eliminar</p>
+				<p class="delete-option" ion-button (click)="updateOrder()">Modificar</p>
+    	</div>
+			
+    </div>
+  </div>
+
+</ion-content>

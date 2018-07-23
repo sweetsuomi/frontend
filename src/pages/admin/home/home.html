@@ -1,0 +1,44 @@
+<ion-header>
+	<ion-navbar color="primary" class="navbar-admin-home">
+		<ion-title> <img src="./assets/logo/logo-home.svg" alt="logo_home" /></ion-title>
+		<ion-buttons end>
+			<button class="button-logout" ion-button (click)="logout()">
+				<ion-icon name="power"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<div class="container">
+		<div class="container-box">
+			<button class="create-menu" (click)="navigateToAdminCreateMenu()" ion-button>
+				<ion-icon name="restaurant"></ion-icon>
+				<h3>Menús</h3>
+			</button>
+			<button class="list-box" (click)="navigateToDishes()" ion-button>
+				<ion-icon name="cafe"></ion-icon>
+				<h3>Platos</h3>
+			</button>
+			<button class="list-box" (click)="navigateToCategories()" ion-button>
+				<ion-icon name="folder-open"></ion-icon>
+				<h3>Categorías</h3>
+			</button>
+			<button class="list-box" (click)="navigateToIntolerances()" ion-button>
+				<ion-icon name="list-box"></ion-icon>
+				<h3>Intolerancias</h3>
+			</button>
+			<button class="create-box" (click)="navigateToHistoricOrders()" ion-button text-wrap>
+				<ion-icon name="paper"></ion-icon>
+				<h3>Pedidos</h3>
+			</button>
+			<button class="list-box" (click)="navigateToStats()" ion-button>
+				<ion-icon name="stats"></ion-icon>
+				<h3>Estadísticas</h3>
+			</button>
+			<button class="list-box" (click)="navigateToCommunication()" ion-button>
+				<ion-icon name="person"></ion-icon>
+				<h3>Comunicación</h3>
+			</button>
+		</div>
+	</div>
+</ion-content>

@@ -1,0 +1,57 @@
+page-historic-historic-orders {
+
+}
+
+.historic-orders-list {
+    width: 100%;
+    display: flex;
+    margin: 8px 3px;
+  box-shadow: 0 2px 15px rgba(100, 100, 100, 0.1), 0 2px 5px rgba(100, 100, 100, 0.1);
+  background-color: white;
+  justify-content: space-between;
+}
+
+.historic-orders-elements {
+    height: 80px;
+    background-color: #fff;
+    width: 80%;
+}
+
+.historic-orders-elements > .button-inner {
+    justify-content: space-between;
+    padding: 4px 20px;
+}
+
+.historic-orders-status-elements {
+    color: #999;
+    text-transform: none;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    width: 12%;
+}
+
+.historic-orders-status-elements ion-checkbox {
+  padding-top: 35px;
+}
+
+.date-historic-orders {
+ text-align: left;   
+}
+
+h4, .date-historic-orders p {
+    margin: 4px 0;
+}
+
+
+.navbar-historic-orders .toolbar-title-md {
+    margin-right: 40px;
+}
+
+.historic-orders-list .button-md {
+  box-shadow: none;
+}
+
+.button-md.activated {
+  background-color: #f5f5f5;
+}

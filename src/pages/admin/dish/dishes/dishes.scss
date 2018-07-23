@@ -1,0 +1,90 @@
+page-dishes {
+
+}
+.button-add-dishes {
+    margin: 0 6px;
+        padding: 0 5px;
+}
+
+.dishes-page .container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: auto;
+}
+
+.admin-dishes-group {
+  & > h3 {
+    margin: 3% 0 0;
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    height: 28px;
+    font-size: 18px;
+    font-weight: 900;
+  }
+}
+
+.dishes-group-elements {
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
+  display: flex;
+}
+
+.dishes-element {
+  background-color: white;
+  border-bottom: 0.5px solid #c9c9c9;
+  width: 85%;
+  & > div {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 0 0 0 25px;
+    & > img {
+      width: 60px;
+      height: auto;
+      cursor: pointer;
+    }
+  }
+}
+
+.dishes-info {
+      margin: 10px 0 15px 15px;
+      max-width: 70%;
+      min-width: 162px;
+      cursor: pointer;
+      & > p {
+        color: #999;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+.icon-trash-dishes{
+    background-color: unset;
+    font-size: 28px;
+    color: #ff4543;
+    width: 10%;
+    height: auto;
+    text-align: center;
+    margin: 2px 6px;
+    padding: 25px 0 0;
+    box-shadow: none;
+}
+
+
+
+.icon-trash-dishes.activated {
+  background-color: white;
+}
+
+.icon-trash-dishes-disabled {
+        background-color: unset;
+    font-size: 28px;
+    color: #999;
+    width: 10%;
+    height: auto;
+    text-align: center;
+    box-shadow: none;
+    margin: 2px 6px;
+    padding: 25px 0px 0px;
+}

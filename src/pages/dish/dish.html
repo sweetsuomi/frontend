@@ -1,0 +1,50 @@
+<ion-header>
+	<ion-navbar class="navbar-dish">
+		<ion-title>
+			<img src="./assets/logo/logo-home.svg" alt="logo_home" />
+		</ion-title>
+		<ion-buttons *ngIf="this.booked" class="button-add-categories" end>
+			<button (click)="removeQuantity()" ion-button>
+				<ion-icon name="trash"></ion-icon>
+			</button>
+    	</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="container-dishpage">
+	<div *ngIf="isEmptyObject(dish)">
+		<img src="{{cloudFrontURL}}dish/{{dish.dish._id}}.png" alt="{{dish.dish.title}}" />
+		<section class="dish-main-info">
+			<h2>{{dish.dish.title}}</h2>
+			<div>
+				<p>{{dish.dish.price | number:'1.2'}}€</p>
+			</div>
+		</section>
+		<article class="dish-content">
+			<section class="dish-category">
+				<p>Categoría: {{dish.dish.category.name}}</p>
+			</section>
+			<section class="dish-availability">
+				<p>Unidades disponibles:
+					<span>{{dish.quantity}}</span>
+				</p>
+				<p style="color: green">Unidades Reservadas:
+					<span>{{booked}}</span>
+				</p>
+			</section>
+			<div class="box-intolerance">
+				<section class="dish-intolerances" *ngFor="let intolerance of dish.dish.intolerances">
+					<img src="{{cloudFrontURL}}intolerances/{{intolerance}}.png" alt="{{intolerance.name}}" />
+				</section>
+			</div>
+			<section class="dish-description">
+				<p>{{dish.dish.description}}</p>
+			</section>
+		</article>
+	</div>
+	<!-- <img *ngIf="!isEmptyObject(dish)" src="./assets/logo/logo-home.svg" /> -->
+</ion-content>
+
+<button *ngIf="isEmptyObject(dish)" class="home-button-order" ion-button full (click)="promptQuantity()">
+	<h4>Añadir al carrito</h4>
+</button>

@@ -1,0 +1,8 @@
+{
+  "name": "sweetsuomi",
+  "app_id": "bc12b959",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

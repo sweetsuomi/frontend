@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-navbar class="navbar-register">
+  <ion-title>
+      <img src="./assets/logo/logo-home.svg" alt="logo_home" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-slides pager>
+
+  <ion-slide class="slide-register">
+    <div class="slide-register-container">
+      <div class="ion-list-register-box">
+        <h2>
+          ¡Bienvenido a SweetSoumi!
+        </h2>
+        <div>
+          <p>
+            Completa el registro para empezar a reservar tu comida
+          </p>
+        </div>
+        <ion-list class="box-text-register" *ngIf="auth">
+          <ion-item>
+            <ion-input type="text" placeholder="Email" [(ngModel)]="auth.email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="Usuario" [(ngModel)]="user.nickname"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" placeholder="Contraseña" [(ngModel)]="auth.password"></ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="button-box">
+        <button ion-button (click)="slide1()">Siguiente
+					<ion-icon class="arrow-forward" name="arrow-forward"></ion-icon>
+				</button>
+      </div>
+
+    </div>
+    <div class="button-box">
+      <p class="login" (click)="back()">¿Ya tienes cuenta? Inicia sesión aquí</p>
+    </div>
+  </ion-slide>
+
+  <ion-slide class="slide-register">
+    <div class="slide-register-container">
+      <div class="ion-list-register-box">
+        <h2>
+          ¡Bienvenido a SweetSoumi!
+        </h2>
+
+        <ion-list class="box-text-register" *ngIf="user">
+          <ion-item>
+            <ion-input type="text" placeholder="Telefono" [(ngModel)]="user.phone"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" placeholder="Empresa (opcional)" [(ngModel)]="user.company"></ion-input>
+          </ion-item>
+<!--
+          <ion-item>
+            <ion-input type="text" placeholder="Dirección de entrega (no disponible)"></ion-input>
+          </ion-item>
+-->
+          <ion-item no-lines text-wrap>
+						<ion-label style="color:#333;font-size:12px" (click)="goToTerms()">He leido y acepto los términos y condiciones de esta aplicación</ion-label>
+            <ion-checkbox color="dark" checked="false" [(ngModel)]="conditions"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="button-box">
+        <button ion-button (click)="slide2()">Siguiente
+					<ion-icon class="arrow-forward" name="arrow-forward"></ion-icon>
+				</button>
+      </div>
+    </div>
+    <div class="login-box">
+      <p class="login">¿Ya tienes cuenta? Inicia sesión aquí</p>
+    </div>
+  </ion-slide>
+
+  <ion-slide class="slide-register" *ngIf="user">
+    <div class="slide-register-container">
+      <div class="ion-list-register-box">
+        <a>
+					<img src="./assets/img/logo_img.png" alt="register_logo" />
+				</a>
+        <h2>
+          ¡Bienvenido a SweetSoumi!
+        </h2>
+        <div>
+          <p>Te has registrado correctamente</p>
+          <p>¡<strong>GRACIAS</strong> {{user.nickname}} !</p>
+        </div>
+      </div>
+
+      <div class="button-box">
+        <button ion-button (click)="slide3()">Comenzar
+					<ion-icon class="arrow-forward" name="arrow-forward"></ion-icon>
+				</button>
+      </div>
+    </div>
+  </ion-slide>
+
+</ion-slides>

@@ -1,0 +1,16 @@
+<ion-header>
+	<ion-navbar class="navbar-feedback">
+		<ion-title>Feedback</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<div class="content-opinion">
+		<div class="text-opinion"> En SweetSoumi tenemos en cuenta tu opinión, ¿en qué podemos mejorar? </div>
+		<ion-item>
+			<ion-textarea placeholder="Comentario" rows="6" maxlength="1000" value="" [(ngModel)]="feedback"></ion-textarea>
+		</ion-item>
+	</div>
+	<div class="dish-cta">
+		<button (click)="sendFeedback()">Enviar comentario</button>
+	</div>
+</ion-content>

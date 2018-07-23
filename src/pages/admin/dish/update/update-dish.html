@@ -1,0 +1,41 @@
+<ion-header>
+	<ion-navbar class="navbar-update-dish">
+		<ion-title>Actualizar Plato</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<div *ngIf="imageUrl">
+		<input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
+		<img src="{{imageUrl.base64}}" alt="pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'"/>
+		<div class="text-create-dish">
+			<ion-item>
+				<ion-label stacked color="dark">Título</ion-label>
+				<ion-input type="title" [(ngModel)]="dish.title">{{dish.title}}</ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked color="dark">Categoría</ion-label>
+				<ion-select *ngIf="categoryList" okText="Ok" cancelText="Cancelar" (ionChange)="switchCategory($event)">
+					<ion-option *ngFor="let i of objectKeys(categoryList)" [value]="categoryList[i]" [selected]="checkIfCategoryIsSelected(categoryList[i].name)">{{categoryList[i].name}}</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked color="dark">Precio (€)</ion-label>
+				<ion-input type="price" [(ngModel)]="dish.price">{{dish.price}}</ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked color="dark">Intolerancias</ion-label>
+				<ion-select multiple *ngIf="intoleranceList" okText="Ok" cancelText="Cancelar" (ionChange)="setIntolerances($event)">
+					<ion-option *ngFor="let i of objectKeys(intoleranceList)" [value]="intoleranceList[i]" [selected]="checkIfIntoleranceIsSelected(intoleranceList[i].name)">{{intoleranceList[i].name}}</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked color="dark">Descripción</ion-label>
+				<ion-textarea rows="3" [(ngModel)]="dish.description">{{dish.description}}</ion-textarea>
+			</ion-item>
+		</div>
+	</div>
+	<div class="buton-dish">
+		<button class="button-save-dish" ion-button (click)="updateDish(dish._id)">Actualizar</button>
+	</div>
+</ion-content>

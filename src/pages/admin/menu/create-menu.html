@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar class="navbar-admin-create-menu">
+        <ion-title>Crear Menú</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="menu-list-admin">
+    <div>
+        <ion-item class="date-menu">
+            <ion-label>Fecha del menu</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date" cancelText="Cancelar" min="2017-12-15" max="2117-12-31" doneText="Aceptar"
+                (ionChange)="changeDate()"></ion-datetime>
+        </ion-item>
+        <ion-item class="date-menu">
+            <ion-label>Franja horaria</ion-label>
+            <ion-select *ngIf="schedule" [(ngModel)]="timeSelected" cancelText="Cancelar" okText="Aceptar" (ionChange)="changeTime()">
+                <ion-option *ngFor="let option of schedule; let idx = index" [value]="idx" [selected]="idx === 0">{{option.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="date-menu">
+            <ion-label>Categoría</ion-label>
+            <ion-select *ngIf="categories" [(ngModel)]="categoryIndex" cancelText="Cancelar" okText="Aceptar" (ionChange)="changeCategory()">
+                <ion-option *ngFor="let option of categories; let idx = index" [value]="idx" [selected]="idx === 0">{{option.name}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <article class="container" *ngIf="dishList">
+            <section class="admin-dishes-group">
+                <div class="dishes-group-elements-menu">
+                    <div class="dish-element" *ngFor="let dish of dishList">
+                        <div>
+                            <img src="{{cloudFrontURL}}dish/{{dish._id}}.png" alt="{{dish.title}}" />
+                            <div class="dish-info">
+                                <h4>{{dish.title}}</h4>
+                                <p>{{dish.price | number:'1.2'}}€</p>
+                            </div>
+                            <ion-select *ngIf="menuDay" okText="Ok" cancelText="Cancelar" (ionChange)="modifyDishQuantity(dish, menuDay[dish._id], $event)">
+                                <ion-option *ngFor="let i of getArrayKeys(dish._id)" [value]="i.value" [selected]="i.selected">{{i.value}}</ion-option>
+                            </ion-select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+</ion-content>

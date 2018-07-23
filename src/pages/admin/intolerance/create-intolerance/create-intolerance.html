@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar class="navbar-create-intolerance">
+        <ion-title>Crear intolerancia</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <div *ngIf="intolerance">
+        <div class="photo-create-intolerance">
+            <div class="img-intolerances-create-intolerances" *ngIf="!imageUrl.name">
+                <ion-icon name="image"></ion-icon>
+                <button *ngIf="!imageUrl.name" class="photo-create-intolerance-button" ion-button (click)="file.click()">
+					<label style="position: absolute; color: black;">Subir imagen</label>
+				</button>
+            </div>
+            <input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
+            <img *ngIf="imageUrl.name" src="{{imageUrl.base64}}" alt="pic" (click)="file.click()" />
+        </div>
+        <div class="text-create-intolerance">
+            <ion-item>
+                <ion-label stacked color="dark">Título</ion-label>
+                <ion-input type="title" [(ngModel)]="intolerance.name"> Titulo de la intolerancia </ion-input>
+            </ion-item>
+        </div>
+    </div>
+    <div class="buton-intolerance">
+        <button class="button-save-intolerance" (click)="createIntolerance()" ion-button>Guardar</button>
+    </div>
+</ion-content>

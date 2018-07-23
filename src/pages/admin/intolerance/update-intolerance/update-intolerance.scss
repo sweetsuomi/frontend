@@ -1,0 +1,87 @@
+page-update-intolerance {}
+
+.navbar-update-intolerance ion-title {
+    padding-right: 26px;
+}
+
+.text-update-intolerance {
+    margin: 0 auto 60px;
+    width: 90%;
+}
+
+.photo-update-intolerance {
+    width: 100%;
+    height: 40vw;
+    background-color: #e9e9e9;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.photo-update-intolerance ion-icon {
+    font-size: 40px;
+    color: #333;
+    margin: 0 auto;
+}
+
+.photo-update-intolerance .photo-update-intolerance-button,
+.photo-update-intolerance .button-ios {
+    width: 180px;
+    background-color: #f9f9f9;
+    margin: 10px auto 0;
+    box-shadow: 0 2px 15px rgba(100, 100, 100, 0.1), 0 1px 0 rgba(100, 100, 100, 0.2);
+    border-radius: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.photo-update-intolerance .photo-update-intolerance-button h3 {
+    color: #333;
+    font-size: 16px;
+    margin: 5px;
+    text-transform: initial;
+}
+
+.text-update-intolerance input,
+.text-update-intolerance textarea {
+    color: #ff9500;
+    padding-left: 10px;
+}
+
+.text-update-intolerance .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .text-update-intolerance .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: #999;
+    box-shadow: unset;
+} 
+
+.buton-intolerance {
+    display: inline-flex;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.button-save-intolerance {
+    background-color: #ff9500;
+    color: #fff;
+    width: 100%;
+    height: 8vh;
+    font-size: 130%;
+    margin: 0;
+    border-radius: 0;
+}
+
+.info-intolerances {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.img-intolerances {
+    width: 100%;
+    text-align: center;
+}
+
+.img-intolerances img {
+    width: 30%;
+    margin: 15px auto;
+}

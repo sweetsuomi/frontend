@@ -1,0 +1,5 @@
+.sourcemaps
+node_modules
+plugins
+www
+resources

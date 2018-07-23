@@ -1,0 +1,60 @@
+<ion-header>
+	<ion-navbar class="navbar-shopping-cart">
+		<ion-title><img src="./assets/logo/logo-home.svg" alt="logo_home" /> </ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<div class="box-ticket-shopping-cart" *ngIf="order">
+		<p class="price-total-text" *ngIf="order">Total: {{resume.price | number:'1.2'}}€</p>
+		<div class="box-info">
+			<div class="info-shopping-cart">
+				<h3 class="title-shopping-cart">RECOGER EN LOCAL</h3>
+				<div class="address-box">
+					<ion-icon name="ios-pin-outline"></ion-icon>
+					<p class="description-text address-text">Calle Condesa de Venadito 3b - 28027 Madrid - Tel: 646 74 38 13</p>
+				</div>
+			</div>
+			<div class="info-shopping-cart">
+				<h3 class="title-shopping-cart">AGREGAR NOTA</h3>
+				
+				<ion-item>
+					<ion-textarea rows="2" placeholder="(sin cebolla, sin ajo,...)" [(ngModel)]="order.note"></ion-textarea>
+				</ion-item>
+			</div>
+			<div class="info-shopping-cart" *ngIf="time">
+				<h3 class="title-shopping-cart">HORA DE RECOGIDA</h3>
+				<ion-item>
+					<ion-datetime class="date-text-info" displayFormat="HH:mm" min="{{time.minTime}}" max="{{time.maxTime}}" pickerFormat="HH mm" minuteValues="[15,30,45,55]" cancelText="Cancelar" doneText="Aceptar" [(ngModel)]="date"></ion-datetime>
+				</ion-item>
+			</div>
+		</div>
+		<div class="box-shopping-cart">
+			<h3 class="title-shopping-cart">TU PEDIDO</h3>
+			<p class="description-text">Posibilidad de modificar hasta 1 hora antes de la entrega tras la reserva</p>
+		</div>
+		<ion-list *ngFor="let element of objectKeys(order.orderDish)">
+			<ion-item-sliding #slidingItem>
+				<ion-item class="box-item">
+					<div class="box-item-title">
+						<img src="http://d3ksovztvyvzlz.cloudfront.net/dish/{{order.orderDish[element].dish._id}}.png" alt="{{order.orderDish[element].dish.title}}" class="img-dish-shopping-cart" />
+						<div class="description-text-item">
+							<h4 class="title-item text-limited" ion-text>{{order.orderDish[element].dish.title}}...</h4>
+							<h5 class="description-text text-limited">{{order.orderDish[element].dish.description}}...</h5>
+						</div>
+					</div>
+					<div class="option-shoppingcart">
+						<p class="delete-option" ion-button (click)="removeDishFromOrder(order.orderDish[element].dish._id)">Eliminar</p>
+					</div>
+					<div class="box-item-price">
+						<p class="description-text" ion-text color="secondary">{{order.orderDish[element].dish.price}}€ x {{order.orderDish[element].quantity}}</p>
+						<p class="price-text">{{order.orderDish[element].dish.price * order.orderDish[element].quantity | number:'1.2'}}€</p>
+					</div>
+				</ion-item>
+				<ion-item-options side="right">
+					<button class="delete-box" ion-button (click)="removeDishWithAnimation(order.orderDish[element].dish._id, slidingItem)">Eliminar</button>
+				</ion-item-options>
+			</ion-item-sliding>
+		</ion-list>
+	</div>
+</ion-content>
+<button ion-button class="box-button-pedido" *ngIf="order" (click)="postOrder()">Reservar pedido ({{resume.price | number:'1.2'}}€)</button>
