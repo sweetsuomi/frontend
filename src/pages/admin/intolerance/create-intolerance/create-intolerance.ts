@@ -32,13 +32,13 @@ export class CreateIntolerancePage {
   }
 	
 	createIntolerance() {
-		this.intoleranceProvider.createIntolerance(this.intolerance, this.imageUrl)
-			.then(() => {
-				this.setToastMessage("Se ha creado el la intolerancia");
-				this.navCtrl.pop();
-			}).catch(e => {
-				this.setToastMessage(e.message);
-			});
+		// this.intoleranceProvider.createIntolerance(this.intolerance, this.imageUrl)
+		// 	.then(() => {
+		// 		this.setToastMessage("Se ha creado el la intolerancia");
+		// 		this.navCtrl.pop();
+		// 	}).catch(e => {
+		// 		this.setToastMessage(e.message);
+		// 	});
 	}
 	
 	imageUpload(event) {

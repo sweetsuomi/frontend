@@ -11,21 +11,24 @@
 
 <ion-content class="dishes-page">
     <article class="container">
-        <section class="admin-dishes-group" *ngIf="dishList">
-            <div class="dishes-group-elements" *ngFor="let dish of objectKeys(dishList)">
-                <div class="dishes-element" (click)="goToDishDetail(dishList[dish]._id)">
+        <ion-list class="admin-dishes-group" *ngIf="dishList">
+            <div class="dishes-group-elements" *ngFor="let dish of dishList; let i = index">
+                <div class="dishes-element" (click)="goToDishDetail(dish._id)">
                     <div>
-                        <img src="{{cloudFrontURL}}dish/{{dishList[dish]._id}}.png?{{currentDateTime}}" alt="{{dishList[dish].title}}" />
+                        <img item-start src="{{cloudFrontURL}}dish/{{dish._id}}.png?{{currentDateTime}}" alt="{{dish.title}}" />
                         <div class="dishes-info">
-                            <h4>{{dishList[dish].title}}</h4>
-                            <p>Categoría: {{dishList[dish].category.name}}</p>
-                            <p>Precio: {{dishList[dish].price | number:'1.2'}} €</p>
+                            <h4>{{dish.title}}</h4>
+                            <p>Categoría: {{dish.category.name}}</p>
+                            <p>Precio: {{dish.price | number:'1.2'}} €</p>
                         </div>
                     </div>
                 </div>
-                <ion-icon class="icon-trash-dishes" name="trash" *ngIf="isEnabled(dishList[dish]._id)" (click)="deleteDish(dishList[dish]._id)" ion-button></ion-icon>
-                <ion-icon class="icon-trash-dishes-disabled" name="trash" *ngIf="!isEnabled(dishList[dish]._id)" ion-button></ion-icon>
+                <ion-icon class="icon-trash-dishes" name="trash" *ngIf="isEnabled(dish._id)" (click)="deleteDish(i)" ion-button></ion-icon>
+                <ion-icon class="icon-trash-dishes-disabled" name="trash" *ngIf="!isEnabled(dish._id)" ion-button></ion-icon>
             </div>
-        </section>
+        </ion-list>
+        <ion-infinite-scroll *ngIf="dishList" (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </article>
 </ion-content>
