@@ -34,7 +34,7 @@ export class IntolerancesPage {
 			.then(response => {
 				return this.intoleranceProvider.filterGroupById();
 			}).then(response => {
-				this.intoleranceList = response;
+				// this.intoleranceList = response;
 			}).catch(e => {
 				this.setToastMessage(e.message);
 			}).then(() => {

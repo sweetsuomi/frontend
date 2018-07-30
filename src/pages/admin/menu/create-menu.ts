@@ -71,7 +71,7 @@ export class CreateMenuPage {
 
 	loadDishes() {
 		const category = this.categories[this.categoryIndex];
-		this.dishProvider.loadDishes(category._id).then(response => {
+		this.dishProvider.loadDishes(category._id, 0, 2000).then(response => {
 			return this.dishProvider.filterGroupByCategory();
 		}).then(response => {
 			this.dishList = response[category.name].dishes;
