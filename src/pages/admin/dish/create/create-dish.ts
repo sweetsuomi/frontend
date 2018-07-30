@@ -57,13 +57,13 @@ export class CreateDishPage {
 	}
 	
 	createDish() {
-		this.dishProvider.createDish(this.dish, this.imageUrl)
-			.then(() => {
-				this.setToastMessage("Se ha creado el plato");
-				this.navCtrl.pop();
-			}).catch(e => {
-				this.setToastMessage(e.message);
-			});
+		// this.dishProvider.createDish(this.dish, this.imageUrl)
+			// .then(() => {
+			// 	this.setToastMessage("Se ha creado el plato");
+			// 	this.navCtrl.pop();
+			// }).catch(e => {
+			// 	this.setToastMessage(e.message);
+			// });
 	}
 
 	switchCategory(category) {

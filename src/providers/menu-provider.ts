@@ -22,7 +22,7 @@ export class MenuProvider {
 		this.serverURL = this.globalProvider.getServerURL();
 	}
 	
-	public getMenu(date, time) {
+	public getMenu(date?: string, time?: string) {
 		var url = '';
 
 		if (date && time) {

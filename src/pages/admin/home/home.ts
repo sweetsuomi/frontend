@@ -17,6 +17,10 @@ export class AdminHomePage {
 	navigateToAdminCreateMenu() {
 		this.navCtrl.push("CreateMenuPage");
 	}
+
+	navigateToSchedules() {
+		this.navCtrl.push("SchedulesPage");
+	}
 	
 	navigateToDishes() {
 		this.navCtrl.push("DishesPage");

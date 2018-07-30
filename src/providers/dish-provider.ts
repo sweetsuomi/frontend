@@ -20,13 +20,11 @@ export class DishProvider {
 		this.serverURL = this.globalProvider.getServerURL();
 	}
 
-	public loadDishes(categoryId) {
-		const limit = 2000;
+	public loadDishes(categoryId, offset, limit) {
 		return this.authProvider.getCredentials().then(response => {
-			return this.http.get(
-				`${this.serverURL}dish?category=${categoryId}&limit=${limit}`,
-				this.requestHeaders(response.token)
-			).toPromise();
+			let path = `${this.serverURL}dish?offset=${offset || 0}&limit=${limit || 2000}`;
+			if (categoryId) { path += `&category=${categoryId || 0}`; }
+			return this.http.get(path, this.requestHeaders(response.token)).toPromise();
 		}).then(data => {
 			return this.dishList = data.json();
 		});
@@ -55,15 +53,14 @@ export class DishProvider {
 		return Promise.resolve(array);
 	}
 
-	public deleteDish(key: string): Promise<any> {
+	public deleteDish(key: string) {
 		return this.authProvider.getCredentials().then(response => {
 			return this.http.delete(
-				`${this.serverURL}dish?_id=${this.dishList[key]._id}`,
+				`${this.serverURL}dish/${this.dishList[key]._id}`,
 				this.requestHeaders(response.token)
 			).toPromise();
 		}).then(() => {
-			delete this.dishList[key];
-			return this.dishList;
+			return this.dishList.splice(key, 1);
 		}).catch(e => {
 			return Promise.reject(new Error(e));
 		});

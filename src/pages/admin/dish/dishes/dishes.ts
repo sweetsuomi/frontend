@@ -1,83 +1,79 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
+
 import { DishProvider } from '../../../../providers/dish-provider';
-import { CategoryProvider } from '../../../../providers/category-provider';
-import { IntoleranceProvider } from '../../../../providers/intolerance-provider';
 import { MenuProvider } from '../../../../providers/menu-provider';
-import { LoadingComponent } from '../../../../components/loading/loading';
 import { GlobalProvider } from '../../../../providers/global-provider';
+import { LoadingComponent } from '../../../../components/loading/loading';
+import { ToastComponent } from '../../../../components/toast/toast';
 
 @IonicPage()
 @Component({
-  selector: 'page-dishes',
-  templateUrl: 'dishes.html',
+	selector: 'page-dishes',
+	templateUrl: 'dishes.html',
 })
 export class DishesPage {
-	
+
 	cloudFrontURL: String;
-	dishList: Object;
+	dishList: Array<any>;
 	currentDateTime: number;
 	menuDay: any;
+	offset: number;
+	limit: number;
 
-  constructor(
-		private categoryProvider: CategoryProvider,
-		private intoleranceProvider: IntoleranceProvider,
+	constructor(
 		private menuProvider: MenuProvider,
 		private navCtrl: NavController,
 		private globalProvider: GlobalProvider,
 		private loading: LoadingComponent,
 		private dishProvider: DishProvider,
 		private alertCtrl: AlertController,
-	 	private toastCtrl: ToastController
-	) {}
+		private toast: ToastComponent
+	) { }
 
-  ionViewDidLoad() {	
+	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado...');
 		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
 		this.currentDateTime = new Date().getTime();
-		this.loadCategoriesAndIntolerances();
+		this.offset = 0;
+		this.limit = 10;
 		this.loadMenuDay();
 		this.loadDishes();
 	}
-	
-	loadCategoriesAndIntolerances() {
-		Promise.all([
-			this.intoleranceProvider.loadIntolerances(),
-			this.categoryProvider.loadCategories()
-		]).then(() => {
-			return Promise.all([
-				this.intoleranceProvider.filterGroupById(),
-				this.categoryProvider.filterGroupById()
-			]);
+
+	loadMenuDay() {
+		this.menuProvider.getMenu().then(() => {
+			return this.menuProvider.filterMenuListGroupById();
+		}).then(response => {
+			this.menuDay = response;
 		}).catch(e => {
-			this.setToastMessage(e.message);
+			this.toast.setToastError(e);
 		});
 	}
-	
-	loadMenuDay() {
-		// let date = new Date().toISOString().split('T')[0];
-		// this.menuProvider.getMenu(date)
-		// 	.then(() => {
-		// 		return this.menuProvider.filterMenuListGroupById();
-		// 	}).then(response => {
-		// 		this.menuDay = response;
-		// 	}).catch(e => {
-		// 		this.setToastMessage(e.message);
-		// 	});
-	}
-	
+
 	loadDishes() {
-		// this.dishProvider.loadDishes().then(response => {
-		// 	return this.dishProvider.filterGroupById();
-		// }).then(response => {
-		// 	this.dishList = response;
-		// }).catch(e => {
-		// 	this.setToastMessage(e.message);
-		// }).then(() => {
-		// 	this.loading.stopAnimation();
-		// });
+		this.dishProvider.loadDishes(0, this.offset, this.limit).then(response => {
+			this.offset += this.limit;
+			this.dishList = response;
+		}).catch(e => {
+			this.toast.setToastError(e);
+		}).then(() => {
+			this.loading.stopAnimation();
+		});
+	}
+
+	doInfinite(infiniteScroll) {
+		this.dishProvider.loadDishes(0, this.offset, this.limit).then(response => {
+			this.offset += this.limit;
+			setTimeout(() => {
+				for (let i = 0; i < response.length; i++) {
+					this.dishList.push(response[i]);
+				}
+				infiniteScroll.complete();
+			}, 500);
+		}).catch(e => {
+			this.toast.setToastError(e);
+		});
 	}
 
 	deleteDish(key) {
@@ -90,43 +86,28 @@ export class DishesPage {
 				text: 'Aceptar',
 				handler: data => {
 					this.loading.createAnimation('Borrando plato...');
-					this.dishProvider.deleteDish(key)
-						.then(response => {
-							this.dishList = response;
-						}).catch(e => {
-							this.setToastMessage(e.message);
-						}).then(() => {
-							this.loading.stopAnimation();
-						});
+					this.dishProvider.deleteDish(key).catch(e => {
+						this.toast.setToastError(e);
+					}).then(() => {
+						this.loading.stopAnimation();
+					});
 				}
 			}]
 		});
 		prompt.present();
 	}
-	
+
 	isEnabled(key) {
 		return this.menuDay[key] ? false : true;
 	}
-	
+
 	pushNewCreateDishPage() {
 		this.navCtrl.push('CreateDishPage');
 	}
-	
+
 	goToDishDetail(key) {
 		this.navCtrl.push('UpdateDishPage', {
 			dish: key
 		});
 	}
-	
-	objectKeys = Object.keys;
-	
-	setToastMessage(message) {
-		let toast = this.toastCtrl.create({
-			message: message,
-			duration: 3000,
-			position: 'top'
-		});
-		toast.present();
-	}
-
 }
