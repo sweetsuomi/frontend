@@ -10,7 +10,7 @@ import { AuthProvider } from '../providers/auth-provider';
 export class IntoleranceProvider {
 	
 	private serverURL: String;
-	private intoleranceList: any;
+	public intoleranceList: any;
 
   constructor(
 		private http: Http,
@@ -22,7 +22,7 @@ export class IntoleranceProvider {
 	
 	public loadIntolerances() {
 		return this.http.get(
-			`${this.serverURL}intolerance/all`
+			`${this.serverURL}intolerance`
 		).toPromise().then(data => {
 			this.intoleranceList = data.json().intolerances;
 		}).catch(e => {

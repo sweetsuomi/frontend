@@ -107,7 +107,7 @@ export class DishesPage {
 
 	goToDishDetail(key) {
 		this.navCtrl.push('UpdateDishPage', {
-			dish: key
+			key: key
 		});
 	}
 }

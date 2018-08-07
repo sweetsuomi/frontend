@@ -13,7 +13,7 @@
     <article class="container">
         <ion-list class="admin-dishes-group" *ngIf="dishList">
             <div class="dishes-group-elements" *ngFor="let dish of dishList; let i = index">
-                <div class="dishes-element" (click)="goToDishDetail(dish._id)">
+                <div class="dishes-element" (click)="goToDishDetail(i)">
                     <div>
                         <img item-start src="{{cloudFrontURL}}dish/{{dish._id}}.png?{{currentDateTime}}" alt="{{dish.title}}" />
                         <div class="dishes-info">

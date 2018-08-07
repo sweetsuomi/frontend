@@ -5,9 +5,9 @@
 </ion-header>
 
 <ion-content>
-	<div *ngIf="imageUrl">
+	<div *ngIf="dish">
 		<input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
-		<img src="{{imageUrl.base64}}" alt="pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'"/>
+		<img *ngIf="imageUrl" src="{{imageUrl}}" alt="dish_pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'"/>
 		<div class="text-create-dish">
 			<ion-item>
 				<ion-label stacked color="dark">Título</ion-label>
@@ -16,7 +16,7 @@
 			<ion-item>
 				<ion-label stacked color="dark">Categoría</ion-label>
 				<ion-select *ngIf="categoryList" okText="Ok" cancelText="Cancelar" (ionChange)="switchCategory($event)">
-					<ion-option *ngFor="let i of objectKeys(categoryList)" [value]="categoryList[i]" [selected]="checkIfCategoryIsSelected(categoryList[i].name)">{{categoryList[i].name}}</ion-option>
+					<ion-option *ngFor="let category of categoryList" [value]="category" [selected]="checkIfCategoryIsSelected(category.name)">{{category.name}}</ion-option>
 				</ion-select>
 			</ion-item>
 			<ion-item>

@@ -24,7 +24,7 @@ export class DishProvider {
 		return this.authProvider.getCredentials().then(response => {
 			let path = `${this.serverURL}dish?offset=${offset || 0}&limit=${limit || 2000}`;
 			if (categoryId) { path += `&category=${categoryId || 0}`; }
-			return this.http.get(path, this.requestHeaders(response.token)).toPromise();
+			return this.http.get(path, this.requestHeaders(response.token, false)).toPromise();
 		}).then(data => {
 			return this.dishList = data.json();
 		});
@@ -57,7 +57,7 @@ export class DishProvider {
 		return this.authProvider.getCredentials().then(response => {
 			return this.http.delete(
 				`${this.serverURL}dish/${this.dishList[key]._id}`,
-				this.requestHeaders(response.token)
+				this.requestHeaders(response.token, false)
 			).toPromise();
 		}).then(() => {
 			return this.dishList.splice(key, 1);
@@ -66,35 +66,18 @@ export class DishProvider {
 		});
 	}
 
-	public updateDishList(key, dish) {
-		return this.dishList[key].update({
-			_id: dish._id,
-			title: dish.title,
-			category: dish.category,
-			price: dish.price,
-			description: dish.description,
-			intolerances: dish.intolerances
-		}).catch(error => {
-			throw new Error(error.message);
-		});
-	}
-
-	public getDishFromList(key) {
-		if (this.dishList[key]) {
-			return this.dishList[key];
-		}
-	}
-
-	public updateDish(key, img): Promise<Response> {
-		return this.authProvider.getCredentials().then(response => {
-			let params = this.getDishFromList(key);
+	public updateDish(key, img) {
+		return this.authProvider.getCredentials().then(response => { 
+			let params = this.dishList[key];
+			let formData: FormData = new FormData(); 
+			formData.append('id', '1');
 			if (img.name) {
-				params.imgName = img.name;
+				formData.append('imgName', img.name);
 			}
 			return this.http.put(
 				`${this.serverURL}dish`,
 				params,
-				this.requestHeaders(response.token)
+				this.requestHeaders(response.token, true)
 			).toPromise();
 		}).catch(e => {
 			console.log(e);
@@ -142,7 +125,7 @@ export class DishProvider {
 	}
 
 	public getAllDishes(token, date): Promise<Array<any>> {
-		return this.http.get(`${this.serverURL}dish/all?date=${date}`, this.requestHeaders(token))
+		return this.http.get(`${this.serverURL}dish/all?date=${date}`, this.requestHeaders(token, false))
 			.toPromise().then((data) => {
 				this.dishList = data.json();
 				return this.dishList;
@@ -151,9 +134,15 @@ export class DishProvider {
 			});
 	}
 
-	private requestHeaders(token): RequestOptions {
+	private requestHeaders(token, multipart): RequestOptions {
 		let headers = new Headers({ 'Authorization': 'Bearer ' + token });
-		headers.append('Content-Type', 'application/json');
+
+		if (multipart) {
+			headers.append('Content-Type', 'multipart/form-data');
+		} else {
+			headers.append('Content-Type', 'application/json');
+		}
+
 		return new RequestOptions({ headers: headers });
 	}
 

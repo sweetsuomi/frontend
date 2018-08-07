@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class GlobalProvider {
 	
 	public serverURL: String = "http://backend:3000/";
+	// public serverURL: String = "https://beta.sweetsuomi.com/api/v1/";
 	// private serverURL: String = "https://api.sweetsuomi.com/";
 	// public cloudFrontURL: String = "https://s3-eu-west-1.amazonaws.com/beta.resources.sweetsuomi.com/";
 	public cloudFrontURL: String = "https://s3-eu-west-1.amazonaws.com/resources.sweetsuomi.com/";
