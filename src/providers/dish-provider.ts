@@ -18,6 +18,7 @@ export class DishProvider {
 		private authProvider: AuthProvider
 	) {
 		this.serverURL = this.globalProvider.getServerURL();
+		this.dishList = [];
 	}
 
 	public loadDishes(categoryId, offset, limit) {
@@ -25,8 +26,11 @@ export class DishProvider {
 			let path = `${this.serverURL}dish?offset=${offset || 0}&limit=${limit || 2000}`;
 			if (categoryId) { path += `&category=${categoryId || 0}`; }
 			return this.http.get(path, this.requestHeaders(response.token, false)).toPromise();
-		}).then(data => {
-			return this.dishList = data.json();
+		}).then(response => {
+			var data = response.json();
+			for (let i = 0; i < data.length; i += 1) {
+				this.dishList.push(data[i])
+			}
 		});
 	}
 

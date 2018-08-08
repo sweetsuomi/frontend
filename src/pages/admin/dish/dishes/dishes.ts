@@ -42,6 +42,7 @@ export class DishesPage {
 	}
 
 	loadMenuDay() {
+		this.dishProvider.dishList = [];
 		this.menuProvider.getMenu().then(() => {
 			return this.menuProvider.filterMenuListGroupById();
 		}).then(response => {
@@ -52,9 +53,9 @@ export class DishesPage {
 	}
 
 	loadDishes() {
-		this.dishProvider.loadDishes(0, this.offset, this.limit).then(response => {
+		this.dishProvider.loadDishes(0, this.offset, this.limit).then(() => {
 			this.offset += this.limit;
-			this.dishList = response;
+			this.dishList = this.dishProvider.dishList
 		}).catch(e => {
 			this.toast.setToastError(e);
 		}).then(() => {
@@ -63,12 +64,10 @@ export class DishesPage {
 	}
 
 	doInfinite(infiniteScroll) {
-		this.dishProvider.loadDishes(0, this.offset, this.limit).then(response => {
+		this.dishProvider.loadDishes(0, this.offset, this.limit).then(() => {
 			this.offset += this.limit;
+			this.dishList = this.dishProvider.dishList;
 			setTimeout(() => {
-				for (let i = 0; i < response.length; i++) {
-					this.dishList.push(response[i]);
-				}
 				infiniteScroll.complete();
 			}, 500);
 		}).catch(e => {
