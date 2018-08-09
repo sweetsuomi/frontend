@@ -15,8 +15,8 @@
 			</ion-item>
 			<ion-item>
 				<ion-label stacked color="dark">Categoría</ion-label>
-				<ion-select *ngIf="categoryList" okText="Ok" cancelText="Cancelar">
-					<ion-option *ngFor="let category of categoryList; let i = index" [selected]="dish.category.name === category.name" [value]="category.name">{{category.name}}</ion-option>
+				<ion-select *ngIf="categoryList" okText="Ok" cancelText="Cancelar" (ionChange)="updateCategory($event)">
+					<ion-option *ngFor="let category of categoryList; let i = index" [selected]="dish.category.name === category.name" [value]="{ name: category.name, _id: category._id }">{{category.name}}</ion-option>
 				</ion-select>
 			</ion-item>
 			<ion-item>
@@ -25,8 +25,8 @@
 			</ion-item>
 			<ion-item>
 				<ion-label stacked color="dark">Intolerancias</ion-label>
-				<ion-select multiple *ngIf="intoleranceList" okText="Ok" cancelText="Cancelar">
-					<ion-option *ngFor="let intolerance of intoleranceList" [selected]="checkIfIntoleranceIsSelected(dish.intolerances, intolerance._id)" [value]="intolerance.name">{{intolerance.name}}</ion-option>
+				<ion-select multiple *ngIf="intoleranceList" okText="Ok" cancelText="Cancelar" (ionChange)="updateIntolerance($event)">
+					<ion-option *ngFor="let intolerance of intoleranceList" [selected]="dish.intolerances.indexOf(intolerance._id) > -1" [value]="intolerance._id">{{intolerance.name}}</ion-option>
 				</ion-select>
 			</ion-item>
 			<ion-item>
@@ -35,7 +35,7 @@
 			</ion-item>
 		</div>
 	</div>
-	<!-- <div class="buton-dish">
+	<div class="buton-dish">
 		<button class="button-save-dish" ion-button (click)="updateDish(dish._id)">Actualizar</button>
-	</div> -->
+	</div>
 </ion-content>

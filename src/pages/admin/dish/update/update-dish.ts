@@ -6,7 +6,6 @@ import { LoadingComponent } from '../../../../components/loading/loading';
 import { GlobalProvider } from '../../../../providers/global-provider';
 import { CategoryProvider } from '../../../../providers/category-provider';
 import { IntoleranceProvider } from '../../../../providers/intolerance-provider';
-import { AWSProvider } from '../../../../providers/aws-provider';
 import { ToastComponent } from '../../../../components/toast/toast';
 
 @IonicPage()
@@ -60,22 +59,16 @@ export class UpdateDishPage {
 			return;
 		}
 
-		let reader:FileReader = new FileReader();
 		const file = event.target.files[0];
+		
+		let reader:FileReader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onloadend = (e) => {
 			this.imageUrl = reader.result;
 		}
-		// this.awsProvider.signImage(file.name, file.type).then(response => {
-		// 	return this.awsProvider.uploadToS3(file);
-		// }).then(response => {
-		// 	this.imageUrl = response;
-		// }).catch(e => {
-		// 	this.toast.setToastError(e);
-		// });
 	}
 
-	// updateDish(key) {
+	updateDish(key) {
 		// this.dishProvider.updateDishList(key, this.dish).then(() => {
 		// 	return this.dishProvider.updateDish(key, this.imageUrl);
 		// }).then(() => {
@@ -83,37 +76,23 @@ export class UpdateDishPage {
 		// }).catch(e => {
 		// 	this.toast.setToastError(e);
 		// });
-	// }
+	}
 
-	switchCategory(category) {
+	updateCategory(category) {
 		this.dish.category._id = category._id;
 		this.dish.category.name = category.name;
 	}
 
-	setIntolerances(intolerances) {
-		this.dish.intolerances = intolerances;
+	updateIntolerance(intolerance) {
+		const dishIntolerances = this.dish.intolerances;
+		for (let i = 0; i < intolerance.length; i += 1) {
+			const position = dishIntolerances.indexOf(intolerance[i]);
+			if (position >= 0) {
+				delete dishIntolerances[position];
+			} else {
+				dishIntolerances.push(intolerance);
+			}
+		}
+		console.log(this.dish.intolerances);
 	}
-
-	checkIfCategoryIsSelected(category) {
-		// return category === this.dish.category.name;
-	}
-
-	// Check if intolerance is in the list intolerance list
-	checkIfIntoleranceIsSelected(dishIntoleranceList, intolerance) {
-		// console.log(Object.values(dishIntoleranceList))
-		// return dishIntoleranceList.map(element => {
-		// 	console.log(intolerance, element);
-		// 	if (intolerance === element) {
-		// 		return true;
-		// 	}
-		// })
-		// for (let i = 0; i < this.dish.intolerances.length; i += 1) {
-		// 	if (this.dish.intolerances[i].name === intolerance) {
-		// 		return true
-		// 	}
-		// }
-		// return false;
-	}
-
-	objectKeys = Object.keys;
 }
