@@ -14,7 +14,7 @@ import { ToastComponent } from '../../../../components/toast/toast';
 })
 export class DishesPage {
 
-	cloudFrontURL: String;
+	s3Url: String;
 	dishList: Array<any>;
 	currentDateTime: number;
 	menuDay: any;
@@ -33,12 +33,15 @@ export class DishesPage {
 
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
-		this.currentDateTime = new Date().getTime();
+		this.s3Url = this.globalProvider.s3Url;
 		this.offset = 0;
 		this.limit = 10;
 		this.loadMenuDay();
 		this.loadDishes();
+	}
+
+	ionViewDidEnter() {
+		this.currentDateTime = new Date().getTime();
 	}
 
 	loadMenuDay() {

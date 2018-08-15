@@ -15,7 +15,7 @@
             <div class="dishes-group-elements" *ngFor="let dish of dishList; let i = index">
                 <div class="dishes-element" (click)="goToDishDetail(i)">
                     <div>
-                        <img item-start src="{{cloudFrontURL}}dish/{{dish._id}}.png?{{currentDateTime}}" alt="{{dish.title}}" />
+                        <img item-start src="{{s3Url}}dish/{{dish._id}}.png?{{currentDateTime}}" alt="{{dish.title}}" />
                         <div class="dishes-info">
                             <h4>{{dish.title}}</h4>
                             <p>Categoría: {{dish.category.name}}</p>

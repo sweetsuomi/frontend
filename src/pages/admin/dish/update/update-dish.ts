@@ -16,11 +16,12 @@ import { ToastComponent } from '../../../../components/toast/toast';
 
 export class UpdateDishPage {
 
-	private cloudFrontURL: String;
+	private s3Url: String;
 	private dish: any;
 	private categoryList;
 	private intoleranceList;
 	private imageUrl;
+	private file;
 
 	constructor(
 		private globalProvider: GlobalProvider,
@@ -34,9 +35,9 @@ export class UpdateDishPage {
 
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando el plato...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		this.s3Url = this.globalProvider.s3Url;
 		this.dish = this.dishProvider.dishList[this.navParams.get('key')];
-		this.imageUrl = this.cloudFrontURL + 'dish/' + this.dish._id + '.png';
+		this.imageUrl = this.s3Url + 'dish/' + this.dish._id + '.png';
 		this.loadCategories();
 		this.loadIntolerances();
 		this.loading.stopAnimation();
@@ -59,23 +60,21 @@ export class UpdateDishPage {
 			return;
 		}
 
-		const file = event.target.files[0];
+		this.file = event.target.files[0];
 		
 		let reader:FileReader = new FileReader();
-		reader.readAsDataURL(file);
+		reader.readAsDataURL(this.file);
 		reader.onloadend = (e) => {
 			this.imageUrl = reader.result;
 		}
 	}
 
 	updateDish(key) {
-		// this.dishProvider.updateDishList(key, this.dish).then(() => {
-		// 	return this.dishProvider.updateDish(key, this.imageUrl);
-		// }).then(() => {
-		// 	this.toast.setToastError("El plato ha sido actualizado");
-		// }).catch(e => {
-		// 	this.toast.setToastError(e);
-		// });
+		this.dishProvider.updateDish(this.dish, this.file).then(() => {
+			this.toast.setToastError("El plato ha sido actualizado");
+		}).catch(e => {
+			this.toast.setToastError(e);
+		});
 	}
 
 	updateCategory(category) {
@@ -84,15 +83,6 @@ export class UpdateDishPage {
 	}
 
 	updateIntolerance(intolerance) {
-		const dishIntolerances = this.dish.intolerances;
-		for (let i = 0; i < intolerance.length; i += 1) {
-			const position = dishIntolerances.indexOf(intolerance[i]);
-			if (position >= 0) {
-				delete dishIntolerances[position];
-			} else {
-				dishIntolerances.push(intolerance);
-			}
-		}
-		console.log(this.dish.intolerances);
+		this.dish.intolerances = intolerance;
 	}
 }

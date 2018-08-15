@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { GlobalProvider } from './global-provider';
@@ -27,7 +27,7 @@ export class DishProvider {
 			if (categoryId) { path += `&category=${categoryId || 0}`; }
 			return this.http.get(path, this.requestHeaders(response.token, false)).toPromise();
 		}).then(response => {
-			var data = response.json();
+			const data = response.json();
 			for (let i = 0; i < data.length; i += 1) {
 				this.dishList.push(data[i])
 			}
@@ -70,27 +70,54 @@ export class DishProvider {
 		});
 	}
 
-	public updateDish(key, img) {
+	public updateDish(dish, file) {
 		return this.authProvider.getCredentials().then(response => { 
-			let params = this.dishList[key];
-			let formData: FormData = new FormData(); 
-			formData.append('id', '1');
-			if (img.name) {
-				formData.append('imgName', img.name);
+			let formData: FormData = new FormData();
+
+			for (const data in dish) {
+				if (data === 'category') {
+					formData.append(data, dish[data]._id);
+				} else if (data === 'intolerances') {
+					for (let i = 0; i < dish.intolerances.length; i += 1) {
+						formData.append(data + '[' + i + ']', dish.intolerances[i]);
+					}
+				} else {
+					formData.append(data, dish[data]);
+				}
 			}
+			
+			if (file && file.name) {
+				formData.append('picture', file);
+			}
+
 			return this.http.put(
-				`${this.serverURL}dish`,
-				params,
+				`${this.serverURL}dish/${dish._id}`,
+				formData,
 				this.requestHeaders(response.token, true)
 			).toPromise();
 		}).catch(e => {
-			console.log(e);
-			return Promise.reject(new Error(e.json().msg));
+			return Promise.reject(new Error(e));
 		});
 	}
 
-	public startNewDish() {
-	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public createDish(dish, image) {
 		// let params: any = new DishModel();
@@ -111,23 +138,6 @@ export class DishProvider {
 		// });
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public getDishList() {
-		return this.dishList;
-	}
-
 	public getAllDishes(token, date): Promise<Array<any>> {
 		return this.http.get(`${this.serverURL}dish/all?date=${date}`, this.requestHeaders(token, false))
 			.toPromise().then((data) => {
@@ -141,9 +151,7 @@ export class DishProvider {
 	private requestHeaders(token, multipart): RequestOptions {
 		let headers = new Headers({ 'Authorization': 'Bearer ' + token });
 
-		if (multipart) {
-			headers.append('Content-Type', 'multipart/form-data');
-		} else {
+		if (!multipart) {
 			headers.append('Content-Type', 'application/json');
 		}
 
