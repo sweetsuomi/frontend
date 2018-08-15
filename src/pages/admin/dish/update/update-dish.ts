@@ -71,7 +71,7 @@ export class UpdateDishPage {
 
 	updateDish(key) {
 		this.dishProvider.updateDish(this.dish, this.file).then(() => {
-			this.toast.setToastError("El plato ha sido actualizado");
+			this.toast.setToastMessage("El plato ha sido actualizado");
 		}).catch(e => {
 			this.toast.setToastError(e);
 		});
