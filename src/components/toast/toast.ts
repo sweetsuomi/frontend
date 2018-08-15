@@ -24,7 +24,8 @@ export class ToastComponent {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 4000,
-			position: 'top'
+			position: 'top',
+			dismissOnPageChange: true,
 		});
 
 		toast.present();
