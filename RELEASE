@@ -1,2 +1,14 @@
+v0.0.3
+- Fixed an issue for what images were not being refreshed after updating the dish image
+- Fixed an issue for what dish & update dish images were loaded from cloudfront and sometimes, it was getting cached.
+- Fixed an issue for what intolerances were not being setup correctly
+- Fixed an issue for what multipart FormData was not creating its own debounce.
+- Added some global variables depending of the environment
+- Fix an issue for what infinite scrolling wasn't stacking dishes
+- Fix an issue with intolerances for what it wasn't calling its endpoint properly
+
+v0.0.2
+- Remove package.lock.json
+
 v0.0.1
 - Client setup
