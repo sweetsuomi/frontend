@@ -100,43 +100,62 @@ export class DishProvider {
 		});
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public createDish(dish, image) {
-		// let params: any = new DishModel();
-		// return params.update(dish).then(() => {
-		// 	return this.authProvider.getCredentials();
-		// }).then(response => {
-		// 	dish.imgName = image.name
-		// 	return this.http.post(
-		// 		`${this.serverURL}dish`,
-		// 		dish,
-		// 		this.requestHeaders(response.token)
-		// 	).toPromise();
-		// }).then(response => {
-		// 	params._id = response.json().dish;
-		// 	this.dishList[params._id] = new DishModel(params);
-		// }).catch(e => {
-		// 	return Promise.reject(new Error("Error creando el plato"));
-		// });
+	public newDish() {
+		return {
+			title: '',
+			category: '',
+			price: 0,
+			intolerances: [],
+			description: '',
+		}
 	}
+
+	public createDish(dish, file) {
+		return this.authProvider.getCredentials().then(response => { 
+			let formData: FormData = new FormData();
+
+			for (const data in dish) {
+				if (data === 'intolerances') {
+					for (let i = 0; i < dish.intolerances.length; i += 1) {
+						formData.append(data + '[' + i + ']', dish.intolerances[i]);
+					}
+				} else {
+					formData.append(data, dish[data]);
+				}
+			}
+			
+			if (file && file.name) {
+				formData.append('picture', file);
+			}
+
+			return this.http.post(
+				`${this.serverURL}dish`,
+				formData,
+				this.requestHeaders(response.token, true)
+			).toPromise();
+		}).catch(e => {
+			return Promise.reject(new Error(e));
+		});
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 	public getAllDishes(token, date): Promise<Array<any>> {
 		return this.http.get(`${this.serverURL}dish/all?date=${date}`, this.requestHeaders(token, false))

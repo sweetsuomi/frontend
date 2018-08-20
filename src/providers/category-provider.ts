@@ -10,7 +10,7 @@ import { AuthProvider } from '../providers/auth-provider';
 export class CategoryProvider {
 	
 	private serverURL: String;
-	private categoryList: any;
+	private categoryList;
 
   constructor(
 		private http: Http,
@@ -24,8 +24,7 @@ export class CategoryProvider {
 		return this.http.get(
 			`${this.serverURL}category`
 		).toPromise().then(data => {
-			this.categoryList = data.json();
-			return this.categoryList;
+			return this.categoryList = data.json();
 		}).catch(e => {
 			return Promise.reject(new Error(e));
 		});
