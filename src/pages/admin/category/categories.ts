@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController } from 'ionic-angular';
-import { LoadingComponent } from '../../../../components/loading/loading';
-import { ToastComponent } from '../../../../components/toast/toast';
-import { CategoryProvider } from '../../../../providers/category-provider';
+import { LoadingComponent } from '../../../components/loading/loading';
+import { ToastComponent } from '../../../components/toast/toast';
+import { CategoryProvider } from '../../../providers/category-provider';
 
 @IonicPage()
 @Component({
