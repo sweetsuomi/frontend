@@ -1,0 +1,4 @@
+v0.0.4
+- HTML refactor. Let create-dish like update-dish upload image
+- Remove ObjectKeys in categories & intolerances Select list of options
+- Remove some global variables that are not used at all

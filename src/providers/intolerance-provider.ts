@@ -24,7 +24,7 @@ export class IntoleranceProvider {
 		return this.http.get(
 			`${this.serverURL}intolerance`
 		).toPromise().then(data => {
-			this.intoleranceList = data.json();
+			return this.intoleranceList = data.json();
 		}).catch(e => {
 			return Promise.reject(new Error(e));
 		});

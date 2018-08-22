@@ -6,17 +6,8 @@
 
 <ion-content>
     <div *ngIf="dish">
-        <div class="photo-create-dish">
-            <div *ngIf="!imageUrl.name">
-                <ion-icon name="image"></ion-icon>
-                <button *ngIf="!imageUrl.name" class="photo-create-dish-button" (click)="file.click()" ion-button>
-				<label style="position: absolute; color: black;">Subir imagen</label>
-			</button>
-            </div>
-            <input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
-            <img *ngIf="imageUrl.name" src="{{imageUrl.base64}}" alt="pic" (click)="file.click()" />
-
-        </div>
+        <input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
+        <img *ngIf="imageUrl" src="{{imageUrl}}" alt="dish_pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'"/>
         <div class="text-create-dish">
             <ion-item>
                 <ion-label stacked color="dark">Título</ion-label>
@@ -24,8 +15,8 @@
             </ion-item>
             <ion-item>
                 <ion-label stacked color="dark">Categoría</ion-label>
-                <ion-select *ngIf="categoryList" okText="Ok" cancelText="Cancelar" (ionChange)="switchCategory($event)">
-                    <ion-option *ngFor="let i of objectKeys(categoryList)" [value]="categoryList[i]">{{categoryList[i].name}}</ion-option>
+                <ion-select *ngIf="categoryList" okText="Ok" cancelText="Cancelar" [(ngModel)]="dish.category">
+                    <ion-option *ngFor="let category of categoryList" [value]="category._id">{{category.name}}</ion-option>
                 </ion-select>
             </ion-item>
             <ion-item>
@@ -34,8 +25,8 @@
             </ion-item>
             <ion-item>
                 <ion-label stacked color="dark">Intolerancias</ion-label>
-                <ion-select multiple *ngIf="intoleranceList" okText="Ok" cancelText="Cancelar" (ionChange)="setIntolerances($event)">
-                    <ion-option *ngFor="let i of objectKeys(intoleranceList)" [value]="intoleranceList[i]">{{intoleranceList[i].name}}</ion-option>
+                <ion-select multiple *ngIf="intoleranceList" okText="Ok" cancelText="Cancelar" [(ngModel)]="dish.intolerances">
+                    <ion-option *ngFor="let intolerance of intoleranceList" [value]="intolerance._id">{{intolerance.name}}</ion-option>
                 </ion-select>
             </ion-item>
             <ion-item>
