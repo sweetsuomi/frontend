@@ -1,83 +1,83 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
-
+import { IonicPage, AlertController } from 'ionic-angular';
 import { LoadingComponent } from '../../../../components/loading/loading';
-
+import { ToastComponent } from '../../../../components/toast/toast';
 import { CategoryProvider } from '../../../../providers/category-provider';
-import { GlobalProvider } from '../../../../providers/global-provider';
 
 @IonicPage()
 @Component({
-  selector: 'page-categories',
-  templateUrl: 'categories.html',
+	selector: 'page-categories',
+	templateUrl: 'categories.html',
 })
 export class CategoriesPage {
-	
-	private cloudFrontURL: String;
+
 	private categoryList: any;
 
-  constructor(
-		private globalProvider: GlobalProvider,
+	constructor(
 		private loading: LoadingComponent,
 		private categoryProvider: CategoryProvider,
-	 	private toastCtrl: ToastController,
+		private toast: ToastComponent,
 		private alertCtrl: AlertController
-	) {}
+	) { }
 
-  ionViewDidLoad() {
+	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
-		this.categoryProvider.loadCategories()
-			.then(response => {
-				this.categoryList = response;
-			}).catch(e => {
-				this.setToastMessage(e.message);
-			}).then(() => {
-				this.loading.stopAnimation();
-			});
+		this.loadCategories();
 	}
-	
-	createCategory() {
-		this.displayPrompt()
-			.then(category => {
-				if (category) {
-					this.loading.createAnimation('Creando categoría...');
-					this.categoryProvider.postCategory(category).then(() => {
-						return this.categoryProvider.loadCategories();
-					}).then(response => {
-						this.categoryList = response;
-					}).catch(e => {
-						this.setToastMessage(e.message);
-					}).then(() => {
-						this.loading.stopAnimation();
-					});
-				}
+
+	loadCategories() {
+		this.categoryProvider.loadCategories().then(response => {
+			this.categoryList = response;
+		}).catch(e => {
+			this.toast.setToastError(e);
+		}).then(() => {
+			this.loading.stopAnimation();
 		});
 	}
-	
-	updateCategory(key) {
-		this.displayPrompt(this.categoryList[key].name).then(response => {
-			if (response) {
-				this.loading.createAnimation('Actualizando categoría...');
-				this.categoryProvider.updateCategory(this.categoryList[key]._id, response)
-					.then(() => {
-						return this.categoryProvider.loadCategories();
-					}).then(response => {
-						this.categoryList = response;
-					}).catch(e => {
-						this.setToastMessage(e.message);
-					}).then(() => {
-						this.loading.stopAnimation();
-					});
+
+	createCategory() {
+		this.displayPrompt().then(category => {
+			if (category) {
+				this.loading.createAnimation('Creando categoría...');
+				this.categoryProvider.postCategory(category).then(() => {
+					this.loadCategories();
+				});
 			}
 		});
 	}
-	
+
+	updateCategory(category) {
+		this.displayPrompt(category.name).then(response => {
+			if (response) {
+				this.loading.createAnimation('Actualizando categoría...');
+				this.categoryProvider.updateCategory(category._id, response).then(() => {
+					this.loadCategories();
+				});
+			}
+		});
+	}
+
+	deleteCategory(category) {
+		this.alertCtrl.create({
+			title: 'Borrar categoría',
+			message: "¿Estás seguro que quieres eliminar la categoría: <b>" + category.name + '?</b>',
+			buttons: [{
+				text: 'Cancelar',
+			}, {
+				text: 'Aceptar',
+				handler: data => {
+					this.loading.createAnimation('Borrando categoría...');
+					this.categoryProvider.deleteCategory(category._id).then(response => {
+						this.loadCategories();
+					});
+				}
+			}]
+		}).present();
+	}
+
 	displayPrompt(name = undefined) {
 		return new Promise((resolve, reject) => {
-			let prompt = this.alertCtrl.create({
+			this.alertCtrl.create({
 				title: 'Categoría',
 				message: "",
 				inputs: [{
@@ -94,49 +94,14 @@ export class CategoriesPage {
 				}, {
 					text: 'Agregar',
 					handler: data => {
-						typeof data.category === 'string'
-							?	resolve(data.category)
-							: resolve(false)
+						if (typeof data.category === 'string') {
+							resolve(data.category);
+						} else {
+							resolve(false);
+						}
 					}
 				}]
-			});
-			prompt.present();
+			}).present();
 		});
 	}
-	
-	deleteCategory(key): Promise<boolean> {
-		return new Promise((resolve, reject) => {
-			let prompt = this.alertCtrl.create({
-				title: 'Borrar categoría',
-				message: "¿Estás seguro que quieres eliminar la categoría: <b>" + this.categoryList[key].name + '?</b>',
-				buttons: [{
-					text: 'Cancelar',
-				}, {
-					text: 'Aceptar',
-					handler: data => {
-						this.loading.createAnimation('Borrando categoría...');
-						this.categoryProvider.deleteCategory(key)
-							.then(response => {
-								this.categoryList = response;
-							}).catch(e => {
-								this.setToastMessage(e.message);
-							}).then(() => {
-								this.loading.stopAnimation();
-							});
-					}
-				}]
-			});
-			prompt.present();
-		});
-	}
-	
-	setToastMessage(message) {
-		let toast = this.toastCtrl.create({
-			message: message,
-			duration: 3000,
-			position: 'top'
-		});
-		toast.present();
-	}
-
 }
