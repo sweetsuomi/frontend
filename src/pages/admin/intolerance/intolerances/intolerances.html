@@ -14,8 +14,8 @@
     <section class="admin-intolerances-group">
       <div *ngIf="intoleranceList" class="intolerances-group-elements">
         <div class="intolerances-element" *ngFor="let intolerance of intoleranceList; let i = index;">
-          <div (click)="pushIntolerancePage(intolerance)">
-            <img src="{{cloudFrontURL}}intolerances/{{intolerance._id}}.png" alt="{{intolerance.name}}" />
+          <div (click)="pushUpdateIntolerancePage(i)">
+            <img src="{{s3Url}}intolerances/{{intolerance._id}}.png?{{currentDateTime}}" alt="{{intolerance.name}}" />
             <div class="intolerances-info">
               <h4>{{intolerance.name}}</h4>
             </div>

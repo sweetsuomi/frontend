@@ -67,7 +67,7 @@ export class UserProvider {
 
 	private requestHeaders() {
 		let headers = new Headers();
-    	headers.append('Content-Type', 'application/json');
+		headers.append('Content-Type', 'application/json');
 		return new RequestOptions({ headers: headers });
 	}
 

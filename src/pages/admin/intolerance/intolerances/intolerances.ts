@@ -13,8 +13,9 @@ import { GlobalProvider } from '../../../../providers/global-provider';
 })
 export class IntolerancesPage {
 
-	private cloudFrontURL: String;
-	private intoleranceList: Object;
+	s3Url: String;
+	intoleranceList: Object;
+	currentDateTime: number;
 
 	constructor(
 		private navCtrl: NavController,
@@ -27,12 +28,16 @@ export class IntolerancesPage {
 
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado de intolerancias...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		this.s3Url = this.globalProvider.s3Url;
+	}
+
+	ionViewDidEnter() {
+		this.currentDateTime = new Date().getTime();
 		this.getIntolerances();
 	}
 
 	getIntolerances() {
-		this.intoleranceList = undefined;
+		this.intoleranceList = [];
 		this.intoleranceProvider.loadIntolerances().then(response => {
 			this.intoleranceList = response;
 		}).catch(e => {
@@ -54,7 +59,6 @@ export class IntolerancesPage {
 					console.log(key, this.intoleranceList, this.intoleranceList[key]);
 					this.loading.createAnimation('Borrando intolerancia...');
 					this.intoleranceProvider.deleteIntolerance(this.intoleranceList[key]._id).then(() => {
-						this.intoleranceProvider.deleteIntoleranceFromList(key);
 						this.getIntolerances();
 					}).catch(e => {
 						this.toast.setToastError(e);

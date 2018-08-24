@@ -69,7 +69,7 @@ export class UpdateDishPage {
 		}
 	}
 
-	updateDish(key) {
+	updateDish() {
 		this.dishProvider.updateDish(this.dish, this.file).then(() => {
 			this.toast.setToastMessage("El plato ha sido actualizado");
 		}).catch(e => {
