@@ -28,11 +28,11 @@ export class UpdateIntolerancePage {
 	) {}
 
   ionViewDidLoad() {
-		this.loading.createAnimation('Cargando el plato...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
-		this.intolerance = this.intoleranceProvider.getIntoleranceFromList(this.navParams.get('intolerance'));
-		this.imageUrl = { base64: this.cloudFrontURL + 'intolerances/' + this.intolerance._id + '.png', name: undefined };
-		this.loading.stopAnimation();
+		// this.loading.createAnimation('Cargando el plato...');
+		// this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		// this.intolerance = this.intoleranceProvider.getIntoleranceFromList(this.navParams.get('intolerance'));
+		// this.imageUrl = { base64: this.cloudFrontURL + 'intolerances/' + this.intolerance._id + '.png', name: undefined };
+		// this.loading.stopAnimation();
 	}
 	
 	imageUpload(event) {
@@ -48,14 +48,14 @@ export class UpdateIntolerancePage {
 	}
 	
 	updateIntolerance() {
-		this.intoleranceProvider.updateIntoleranceList(this.navParams.get('intolerance'), this.intolerance)
-			.then(() => {
-				return this.intoleranceProvider.updateIntolerance(this.navParams.get('intolerance'), this.imageUrl);
-			}).then(() => {
-				this.setToastMessage("La intolerancia ha sido actualizada");
-			}).catch(e => {
-				this.setToastMessage(e.message);
-			});
+		// this.intoleranceProvider.updateIntoleranceList(this.navParams.get('intolerance'), this.intolerance)
+		// 	.then(() => {
+		// 		return this.intoleranceProvider.updateIntolerance(this.navParams.get('intolerance'), this.imageUrl);
+		// 	}).then(() => {
+		// 		this.setToastMessage("La intolerancia ha sido actualizada");
+		// 	}).catch(e => {
+		// 		this.setToastMessage(e.message);
+		// 	});
 	}
 		
 	setToastMessage(message) {

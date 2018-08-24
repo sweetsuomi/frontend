@@ -12,18 +12,16 @@
 <ion-content>
   <article class="container">
     <section class="admin-intolerances-group">
-      <div class="intolerances-group-elements" *ngIf="intoleranceList">
-        <div class="intolerances-element" *ngFor="let intolerance of objectKeys(intoleranceList)">
+      <div *ngIf="intoleranceList" class="intolerances-group-elements">
+        <div class="intolerances-element" *ngFor="let intolerance of intoleranceList; let i = index;">
           <div (click)="pushIntolerancePage(intolerance)">
-            <img src="{{cloudFrontURL}}intolerances/{{intoleranceList[intolerance]._id}}.png" alt="{{intoleranceList[intolerance].name}}" />
+            <img src="{{cloudFrontURL}}intolerances/{{intolerance._id}}.png" alt="{{intolerance.name}}" />
             <div class="intolerances-info">
-              <h4>{{intoleranceList[intolerance].name}}</h4>
+              <h4>{{intolerance.name}}</h4>
             </div>
-            
           </div>
-          <ion-icon class="icon-trash-intolerances" name="trash" ion-button (click)="deleteIntolerance(intolerance)"></ion-icon>
+          <ion-icon class="icon-trash-intolerances" name="trash" ion-button (click)="deleteIntolerance(i)"></ion-icon>
         </div>
-        
       </div>
     </section>
   </article>

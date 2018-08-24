@@ -87,10 +87,7 @@ export class CategoriesPage {
 					type: 'string'
 				}],
 				buttons: [{
-					text: 'Cancelar',
-					handler: data => {
-						resolve(false);
-					}
+					text: 'Cancelar'
 				}, {
 					text: 'Agregar',
 					handler: data => {

@@ -9,26 +9,26 @@ import { ToastComponent } from '../../../../components/toast/toast';
 
 @IonicPage()
 @Component({
-  selector: 'page-create-dish',
-  templateUrl: 'create-dish.html',
+	selector: 'page-create-dish',
+	templateUrl: 'create-dish.html',
 })
 export class CreateDishPage {
-	
+
 	private dish: any;
 	private categoryList: Object;
 	private intoleranceList: Object;
 	private imageUrl: Object;
 	private file;
 
-  constructor(
+	constructor(
 		private categoryProvider: CategoryProvider,
 		private intoleranceProvider: IntoleranceProvider,
 		private loading: LoadingComponent,
 		private dishProvider: DishProvider,
 		private navCtrl: NavController,
 		private toast: ToastComponent,
-	) {}
-	
+	) { }
+
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando el plato...');
 		this.dish = this.dishProvider.newDish();
@@ -49,16 +49,15 @@ export class CreateDishPage {
 		}
 
 		this.file = event.target.files[0];
-		
-		let reader:FileReader = new FileReader();
+
+		let reader: FileReader = new FileReader();
 		reader.readAsDataURL(this.file);
 		reader.onloadend = (e) => {
 			this.imageUrl = reader.result;
 		}
 	}
-	
+
 	createDish() {
-		console.log(this.dish);
 		this.dishProvider.createDish(this.dish, this.file).then(() => {
 			this.toast.setToastMessage("Se ha creado el plato");
 			this.navCtrl.pop();
