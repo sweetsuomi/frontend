@@ -8,20 +8,20 @@ import { AuthProvider } from '../providers/auth-provider';
 
 @Injectable()
 export class MenuProvider {
-	
+
 	public menuList;
 	private serverURL: String;
 	private offset = 0;
 	private limit = 990;
 
-  constructor(
+	constructor(
 		public http: Http,
 		private globalProvider: GlobalProvider,
 		private authProvider: AuthProvider
 	) {
 		this.serverURL = this.globalProvider.getServerURL();
 	}
-	
+
 	public getMenu(date?: string, time?: string) {
 		var url = '';
 
@@ -33,11 +33,9 @@ export class MenuProvider {
 
 		return this.http.get(url).toPromise().then(data => {
 			this.menuList = data.json();
-		}).catch(() => {
-			throw new Error('No hay platos disponibles para ese día');
 		});
 	}
-	
+
 	public filterMenuListGroupById(): Promise<any> {
 		let object = {};
 		for (let i = 0; i < this.menuList.length; i += 1) {
@@ -56,7 +54,7 @@ export class MenuProvider {
 		this.menuList = object;
 		return Promise.resolve(object);
 	}
-	
+
 	public filterGroupByCategory(): Promise<void> {
 		let object = {};
 		for (let dish in this.menuList) {
@@ -80,7 +78,6 @@ export class MenuProvider {
 				const dish = categoryDish.dishes[dishId];
 				return dish ? dish : {};
 			}
-			return {};
 		}
 		return {};
 	}
@@ -103,10 +100,10 @@ export class MenuProvider {
 			).toPromise();
 		});
 	}
-	
+
 	private requestHeadersAuth(token): RequestOptions {
 		let headers = new Headers({ 'Authorization': 'Bearer ' + token });
-    headers.append('Content-Type', 'application/json');
+		headers.append('Content-Type', 'application/json');
 		return new RequestOptions({ headers: headers });
 	}
 }

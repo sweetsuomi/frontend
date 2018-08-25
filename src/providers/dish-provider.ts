@@ -34,15 +34,6 @@ export class DishProvider {
 		});
 	}
 
-	public filterGroupById() {
-		// let object = {};
-		// for (let i = 0; i < this.dishList.length; i += 1) {
-		// 	object[this.dishList[i]._id] = new DishModel(this.dishList[i]);
-		// }
-		// this.dishList = object;
-		// return Promise.resolve(object);
-	}
-
 	public filterGroupByCategory(): Promise<any> {
 		let array = {};
 		for (let dish in this.dishList) {
@@ -65,8 +56,6 @@ export class DishProvider {
 			).toPromise();
 		}).then(() => {
 			return this.dishList.splice(key, 1);
-		}).catch(e => {
-			return Promise.reject(new Error(e));
 		});
 	}
 
@@ -95,8 +84,6 @@ export class DishProvider {
 				formData,
 				this.requestHeaders(response.token, true)
 			).toPromise();
-		}).catch(e => {
-			return Promise.reject(new Error(e));
 		});
 	}
 
@@ -133,8 +120,6 @@ export class DishProvider {
 				formData,
 				this.requestHeaders(response.token, true)
 			).toPromise();
-		}).catch(e => {
-			return Promise.reject(new Error(e));
 		});
 	}
 
