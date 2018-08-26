@@ -56,7 +56,6 @@ export class IntolerancesPage {
 			}, {
 				text: 'Aceptar',
 				handler: () => {
-					console.log(key, this.intoleranceList, this.intoleranceList[key]);
 					this.loading.createAnimation('Borrando intolerancia...');
 					this.intoleranceProvider.deleteIntolerance(this.intoleranceList[key]._id).then(() => {
 						this.getIntolerances();
