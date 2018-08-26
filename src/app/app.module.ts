@@ -16,6 +16,7 @@ import { CategoryProvider } from '../providers/category-provider';
 import { IntoleranceProvider } from '../providers/intolerance-provider';
 import { UserProvider } from '../providers/user-provider';
 import { ScheduleProvider } from '../providers/schedule-provider';
+import { CommunicationProvider } from '../providers/communication-provider';
 import { StatsProvider } from '../providers/stats-provider';
 // TO-DO: Remove GeneralProvider at the end of the review of the app
 import { GeneralProvider } from '../providers/general-provider';
@@ -48,6 +49,7 @@ import { GeneralProvider } from '../providers/general-provider';
     UserProvider,
     ScheduleProvider,
     StatsProvider,
+    CommunicationProvider,
     // TO-DO: Remove GeneralProvider at the end of the review of the app
     GeneralProvider
   ]
