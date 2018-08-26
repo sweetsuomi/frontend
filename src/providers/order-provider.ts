@@ -66,6 +66,18 @@ export class OrderProvider {
 		this.newOrder();
 		return Promise.resolve();
 	}
+
+	public getOrderList(date) {
+		return this.authProvider.getCredentials().then(response => {
+			return this.http.get(
+				`${this.serverURL}order?date=${date}`,
+				this.requestHeaders(response.token)
+			).toPromise();
+		}).then(response => this.orderList = response.json() );
+	}
+
+
+
 	
 
 
@@ -100,35 +112,7 @@ export class OrderProvider {
 				throw new Error(e.message);
 			}
 		});
-	}
-	
-	public getOrderList(date) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.get(
-				`${this.serverURL}order/all?date=${date}`,
-				this.requestHeaders(response.token)
-			).toPromise();
-		}).then((response: Response) => {
-			const orders = response.json().orderList;
-			const dishList = response.json().dishes;
-			this.orderList = {};
-			for (let i = 0; i < orders.length; i += 1) {
-				this.orderList[orders[i]._id] = orders[i];
-				this.orderList[orders[i]._id].price = 0;
-				this.orderList[orders[i]._id].dishes = [];
-				for (let j = 0; j < dishList.length; j += 1) {
-					if (dishList[j].orderId === orders[i]._id) {
-						this.orderList[orders[i]._id].dishes.push(dishList[j]);
-						this.orderList[orders[i]._id].price += dishList[j].quantity * dishList[j].dish.price
-					}
-				}
-			}
-			return this.orderList;
-		}).catch(e => {
-			return Promise.reject(new Error(e.json().msg));
-		});
-	}
-	
+	}	
 	
 	public getUserOrderList(date) {
 		return this.authProvider.getCredentials().then(response => {

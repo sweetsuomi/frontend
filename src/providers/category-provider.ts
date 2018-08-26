@@ -23,38 +23,36 @@ export class CategoryProvider {
 	public loadCategories() {
 		return this.http.get(
 			`${this.serverURL}category`
-		).toPromise().then(data => {
-			return this.categoryList = data.json();
-		});
+		).toPromise().then(data => this.categoryList = data.json());
 	}
 
 	public postCategory(category) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.post(
+		return this.authProvider.getCredentials().then(response =>
+			this.http.post(
 				`${this.serverURL}category`,
 				JSON.stringify({ name: category }),
 				this.requestHeaders(response.token)
-			).toPromise();
-		});
+			).toPromise()
+		);
 	}
 
 	public updateCategory(categoryId, newName) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.put(
+		return this.authProvider.getCredentials().then(response =>
+			this.http.put(
 				`${this.serverURL}category/${categoryId}`,
 				JSON.stringify({ name: newName }),
 				this.requestHeaders(response.token)
-			).toPromise();
-		});
+			).toPromise()
+		);
 	}
 
 	public deleteCategory(categoryId) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.delete(
+		return this.authProvider.getCredentials().then(response =>
+			this.http.delete(
 				`${this.serverURL}category/${categoryId}`,
 				this.requestHeaders(response.token)
-			).toPromise();
-		});
+			).toPromise()
+		);
 	}
 
 	private requestHeaders(token) {

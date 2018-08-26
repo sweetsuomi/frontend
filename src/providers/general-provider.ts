@@ -17,7 +17,7 @@ export class GeneralProvider {
 		this.serverURL = this.globalProvider.getServerURL();
 	}
 
-	public postFeedback(feedback): Promise<Response> {
+	public postFeedback(feedback) {
 		return this.http.post(`${this.serverURL}general/feedback`, { feedback: feedback }).toPromise();
 	}
 

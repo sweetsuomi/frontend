@@ -29,7 +29,7 @@ export class DishProvider {
 		}).then(response => {
 			const data = response.json();
 			for (let i = 0; i < data.length; i += 1) {
-				this.dishList.push(data[i])
+				this.dishList.push(data[i]);
 			}
 		});
 	}
@@ -54,9 +54,7 @@ export class DishProvider {
 				`${this.serverURL}dish/${this.dishList[key]._id}`,
 				this.requestHeaders(response.token, false)
 			).toPromise();
-		}).then(() => {
-			return this.dishList.splice(key, 1);
-		});
+		}).then(() => this.dishList.splice(key, 1));
 	}
 
 	public updateDish(dish, file) {
