@@ -1,26 +1,29 @@
 <ion-header>
-  <ion-navbar class="navbar-historic-orders">
-    <ion-title>Pedidos</ion-title>
-  </ion-navbar>
+	<ion-navbar class="navbar-historic-orders">
+		<ion-title>Pedidos</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  <article *ngIf="orders">
+	<article>
 		<ion-item class="date-menu">
 			<ion-label>Fecha del menu</ion-label>
-			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date" cancelText="Cancelar" min="2017-12-11" max="2117-12-31" doneText="Aceptar" (ionChange)="changeDate()"></ion-datetime>
-    </ion-item>
-    <section class="historic-orders-list" *ngFor="let order of objectKeys(orders)" (click)="goToOrderDetail(order)">
-      <div class="historic-orders-elements" ion-button>
-        <div class="date-historic-orders">
-          <h4 class="date-historic-orders-title" ion-text color="secondary">{{formatDate(orders[order].date)}}</h4>
-          <p class="name-historic-orders-title" ion-text color="secondary">{{orders[order].user.nickname}}</p>
-          <p ion-text color="secondary">{{orders[order].price | number:'1.2'}}€</p>
-        </div>
-      </div>
-      <div class="historic-orders-status-elements">
-        <ion-checkbox disabled checked="{{orders[order].isDelivered}}" end></ion-checkbox>
-      </div>
-    </section>
-  </article>
+			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date" cancelText="Cancelar" min="2017-12-11" max="2117-12-31" doneText="Aceptar"
+				(ionChange)="loadCurrentOrders()"></ion-datetime>
+		</ion-item>
+		<section *ngIf="orders">
+			<div class="historic-orders-list" *ngFor="let order of orders" (click)="goToOrderDetail(order._id)">
+				<div class="historic-orders-elements" ion-button>
+					<div class="date-historic-orders">
+						<h4 class="date-historic-orders-title" ion-text color="secondary">{{formatTime(order.time)}}</h4>
+						<p class="name-historic-orders-title" ion-text color="secondary">{{order.user.nickname}}</p>
+						<p ion-text color="secondary">{{order.price | number:'1.2'}}€</p>
+					</div>
+				</div>
+				<div class="historic-orders-status-elements">
+					<ion-checkbox disabled checked="{{order.isDelivered}}" end></ion-checkbox>
+				</div>
+			</div>
+		</section>
+	</article>
 </ion-content>

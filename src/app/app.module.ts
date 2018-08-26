@@ -14,7 +14,6 @@ import { OrderProvider } from '../providers/order-provider';
 import { DishProvider } from '../providers/dish-provider';
 import { CategoryProvider } from '../providers/category-provider';
 import { IntoleranceProvider } from '../providers/intolerance-provider';
-import { AWSProvider } from '../providers/aws-provider';
 import { UserProvider } from '../providers/user-provider';
 import { ScheduleProvider } from '../providers/schedule-provider';
 // TO-DO: Remove GeneralProvider at the end of the review of the app
@@ -45,7 +44,6 @@ import { GeneralProvider } from '../providers/general-provider';
 		DishProvider,
 		CategoryProvider,
 		IntoleranceProvider,
-		AWSProvider,
     UserProvider,
     ScheduleProvider,
     // TO-DO: Remove GeneralProvider at the end of the review of the app

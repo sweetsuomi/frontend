@@ -39,7 +39,7 @@ export class CreateMenuPage {
 
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado de platos...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.date = new Date().toISOString().split('T')[0];
 		this.scheduleProvider.getSchedules().then(response => {
 			this.schedule = response;
@@ -87,7 +87,9 @@ export class CreateMenuPage {
 			return this.menuProvider.filterMenuListGroupById();
 		}).then(response => {
 			this.menuDay = response;
-		}).catch(e => this.toast.setToastError(e)).then(() => {
+		}).catch(e => {
+			this.toast.setToastError(e);
+		}).then(() => {
 			this.loading.stopAnimation()
 		});
 	}
@@ -119,7 +121,9 @@ export class CreateMenuPage {
 	deleteDishFromMenu(menu) {
 		this.menuProvider.deleteDishFromMenu(menu.dish._id).then(response => {
 			this.toast.setToastMessage("El plato ha sido eliminado del menú");
-		}).catch(e => this.toast.setToastError(e));
+		}).catch(e => {
+			this.toast.setToastError(e);
+		});
 	}
 
 	createDishOnMenu(dishId, quantity) {
@@ -128,7 +132,9 @@ export class CreateMenuPage {
 		this.menuProvider.postMenuDish(dishId, quantity, date, scheduleId).then(() => {
 			this.menuDay = undefined;
 			this.loadMenuDay();
-		}).catch(e => this.toast.setToastError(e));
+		}).catch(e => {
+			this.toast.setToastError(e);
+		});
 	}
 
 	objectKeys = Object.keys;

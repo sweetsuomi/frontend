@@ -19,7 +19,7 @@ export class MenuProvider {
 		private globalProvider: GlobalProvider,
 		private authProvider: AuthProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 	}
 
 	public getMenu(date?: string, time?: string) {
@@ -31,9 +31,7 @@ export class MenuProvider {
 			url = `${this.serverURL}menu?offset=${this.offset}&limit=${this.limit}`;
 		}
 
-		return this.http.get(url).toPromise().then(data => {
-			this.menuList = data.json();
-		});
+		return this.http.get(url).toPromise().then(data => this.menuList = data.json() );
 	}
 
 	public filterMenuListGroupById(): Promise<any> {
@@ -83,22 +81,22 @@ export class MenuProvider {
 	}
 
 	public postMenuDish(dishId, quantity, date, time) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.put(
+		return this.authProvider.getCredentials().then(response =>
+			this.http.put(
 				`${this.serverURL}menu`,
 				JSON.stringify({ date: date, time: time, menu: [{ dish: dishId, quantity: quantity }] }),
 				this.requestHeadersAuth(response.token)
-			).toPromise();
-		});
+			).toPromise()
+		);
 	}
 
 	public deleteDishFromMenu(menuId) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.delete(
+		return this.authProvider.getCredentials().then(response => 
+			this.http.delete(
 				`${this.serverURL}menu/${menuId}`,
 				this.requestHeadersAuth(response.token)
-			).toPromise();
-		});
+			).toPromise()
+		);
 	}
 
 	private requestHeadersAuth(token): RequestOptions {

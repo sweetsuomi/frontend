@@ -48,7 +48,9 @@ export class RegisterPage {
 			])
 		}).then(() => {
 			this.nextSlide();
-		}).catch(e => this.toast.setToastError(e));
+		}).catch(e => {
+			this.toast.setToastError(e);
+		});
 	}
 	
 	public slide2() {

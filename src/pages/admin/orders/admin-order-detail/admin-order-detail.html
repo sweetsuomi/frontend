@@ -40,7 +40,7 @@
         <h3 class="title-admin-order">DATOS DEL CLIENTE</h3>
         <div class="address-box">
           <ion-icon name="person"></ion-icon>
-          <p class="description-text address-text">Tel: {{order.user.phone}} - Email: {{order.user.credentials.email}}</p>
+          <p class="description-text address-text">Tel: {{order.user.phone}} - Email: {{order.user.account.email}}</p>
         </div>
       </div>
 
@@ -54,9 +54,7 @@
 
       <div class="info-admin-order">
         <h3 class="title-admin-order">HORA DE RECOGIDA</h3>
-        <ion-item>
-          <ion-datetime disabled class="date-text-info" displayFormat="HH:mm" [(ngModel)]="order.date"></ion-datetime>
-        </ion-item>
+        <h4 class="date-historic-orders-title" ion-text color="secondary">{{formatTime(order.time)}}</h4>
       </div>
     </div>
   </div>

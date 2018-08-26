@@ -17,15 +17,13 @@ export class IntoleranceProvider {
 		private globalProvider: GlobalProvider,
 		private authProvider: AuthProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 	}
 
 	public loadIntolerances() {
 		return this.http.get(
 			`${this.serverURL}intolerance`
-		).toPromise().then(data => {
-			return this.intoleranceList = data.json();
-		});
+		).toPromise().then(data => this.intoleranceList = data.json());
 	}
 
 	public newIntolerance() {
@@ -73,12 +71,12 @@ export class IntoleranceProvider {
 	}
 
 	public deleteIntolerance(id) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.delete(
+		return this.authProvider.getCredentials().then(response =>
+			this.http.delete(
 				`${this.serverURL}intolerance/${id}`,
 				this.requestHeaders(response.token, false)
-			).toPromise();
-		});
+			).toPromise()
+		);
 	}
 
 	private requestHeaders(token, multipart): RequestOptions {

@@ -29,7 +29,7 @@ export class HomePage {
 	) {}
 	
 	ionViewDidLoad() {
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.order = this.orderProvider.order;
 		this.resume = undefined;
 		this.getMenu();

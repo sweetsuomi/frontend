@@ -31,7 +31,7 @@ export class OrderPage {
 
   ionViewDidLoad() {
 		this.loading.createAnimation('Cargando pedido...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.order = this.orderProvider.getSpecificOrder(this.navParams.get('order'));
 		this.loading.stopAnimation();
 		this.checkUpdate()

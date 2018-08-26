@@ -33,7 +33,7 @@ export class ShoppingCartPage {
 
   	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando pedido...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
+		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.setupTimes();
 		this.resume = this.orderProvider.getOrderMenuResume();
 		this.order = this.orderProvider.order;

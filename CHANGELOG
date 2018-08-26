@@ -1,2 +1,3 @@
-v0.0.5
-- Refactor of Categories.
+v0.0.6
+- Fix admin order page & admin order detail page
+- Refactor of components, removing globalProvider getter serverURL & cloudFrontURL

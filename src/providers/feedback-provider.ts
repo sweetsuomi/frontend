@@ -14,7 +14,7 @@ export class FeedbackProvider {
 		public http: Http,
 		private globalProvider: GlobalProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 	}
 
 	public postFeedback(feedback) {
