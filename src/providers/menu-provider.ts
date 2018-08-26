@@ -19,7 +19,7 @@ export class MenuProvider {
 		private globalProvider: GlobalProvider,
 		private authProvider: AuthProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 	}
 
 	public getMenu(date?: string, time?: string) {

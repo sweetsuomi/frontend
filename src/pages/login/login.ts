@@ -28,7 +28,9 @@ export class LoginPage {
 			} else {
 				this.navCtrl.pop();
 			}
-		}).catch(e => this.toast.setToastError(e));
+		}).catch(e => {
+			this.toast.setToastError(e);
+		});
 	}
 	
 	goToRegister() {

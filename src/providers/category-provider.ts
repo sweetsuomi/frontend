@@ -17,7 +17,7 @@ export class CategoryProvider {
 		private globalProvider: GlobalProvider,
 		private authProvider: AuthProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 	}
 
 	public loadCategories() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { GlobalProvider } from './global-provider';
@@ -14,7 +14,7 @@ export class GeneralProvider {
 		public http: Http,
 		private globalProvider: GlobalProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 	}
 
 	public postFeedback(feedback) {

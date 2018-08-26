@@ -18,7 +18,7 @@ export class AuthProvider {
 		private http: Http,
 		private globalProvider: GlobalProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 		this.auth = {
 			email: '',
 			password: ''
