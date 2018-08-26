@@ -12,7 +12,7 @@
 				(ionChange)="loadCurrentOrders()"></ion-datetime>
 		</ion-item>
 		<section *ngIf="orders">
-			<div class="historic-orders-list" *ngFor="let order of orders" (click)="goToOrderDetail(order)">
+			<div class="historic-orders-list" *ngFor="let order of orders" (click)="goToOrderDetail(order._id)">
 				<div class="historic-orders-elements" ion-button>
 					<div class="date-historic-orders">
 						<h4 class="date-historic-orders-title" ion-text color="secondary">{{formatTime(order.time)}}</h4>

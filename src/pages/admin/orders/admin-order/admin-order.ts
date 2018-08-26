@@ -4,7 +4,6 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { OrderProvider } from '../../../../providers/order-provider';
 import { LoadingComponent } from '../../../../components/loading/loading';
 import { ToastComponent } from '../../../../components/toast/toast';
-import { ScheduleProvider } from '../../../../providers/schedule-provider';
 import * as moment from 'moment';
 
 @IonicPage()
@@ -21,8 +20,7 @@ export class AdminOrderPage {
 		private navCtrl: NavController,
 		private orderProvider: OrderProvider,
 		private toast: ToastComponent,
-		private loading: LoadingComponent,
-		private scheduleProvider: ScheduleProvider
+		private loading: LoadingComponent
 	) { }
 
 	ionViewDidLoad() {
@@ -49,9 +47,9 @@ export class AdminOrderPage {
 		return moment(time, "hmm").format("HH:mm");
 	}
 
-	goToOrderDetail(key) {
+	goToOrderDetail(id) {
 		this.navCtrl.push('AdminOrderDetailPage', {
-			order: key
+			orderId: id
 		})
 	}
 }

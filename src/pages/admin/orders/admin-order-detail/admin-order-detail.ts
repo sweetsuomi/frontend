@@ -1,93 +1,90 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { LoadingComponent } from '../../../../components/loading/loading';
 import { GlobalProvider } from '../../../../providers/global-provider';
 import { OrderProvider } from '../../../../providers/order-provider';
+import { ToastComponent } from '../../../../components/toast/toast';
+import * as moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-admin-order-detail',
-  templateUrl: 'admin-order-detail.html',
+	selector: 'page-admin-order-detail',
+	templateUrl: 'admin-order-detail.html',
 })
 export class AdminOrderDetailPage {
-	
+
 	private cloudFrontURL: String;
 	private order;
 
-  constructor(
+	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		private toastCtrl: ToastController,
+		private toast: ToastComponent,
 		private loading: LoadingComponent,
 		private globalProvider: GlobalProvider,
 		private alertCtrl: AlertController,
 		private orderProvider: OrderProvider
-	) {}
+	) { }
 
-  ionViewDidLoad() {
+	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando pedido...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
-		this.order = this.orderProvider.getSpecificOrder(this.navParams.get('order'));
-		this.loading.stopAnimation();
+		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
+		this.getOrder();
 	}
 	
-	setToastMessage(message) {
-		let toast = this.toastCtrl.create({
-			message: message,
-			duration: 3000,
-			position: 'top'
+	getOrder() {
+		this.orderProvider.getOrder(this.navParams.get('orderId')).then(response => {
+			this.order = response;
+			this.loading.stopAnimation();
 		});
-		toast.present();
 	}
-	
+
+	formatTime(time) {
+		return moment(time, "hmm").format("HH:mm");
+	}
+
 	deleteOrder() {
-		let prompt = this.alertCtrl.create({
+		this.alertCtrl.create({
 			title: 'Eliminar pedido',
 			message: "¿Estás seguro que quieres eliminar el pedido?",
 			buttons: [{
 				text: 'Cancelar'
 			}, {
 				text: 'Aceptar',
-				handler: data => {
+				handler: () => {
 					this.loading.createAnimation('Eliminando pedido...');
-					this.orderProvider.deleteAdminOrder(this.order._id)
-						.then(() => {
-							this.loading.stopAnimation();
-							this.navCtrl.pop();
-						}).catch(error => {
-							this.setToastMessage(error.message);
-							this.loading.stopAnimation();
-						});
+					this.orderProvider.deleteOrder(this.order._id).then(() => {
+						this.navCtrl.pop();
+					}).catch(error => {
+						this.toast.setToastError(error);
+					}).then(() => {
+						this.loading.stopAnimation();
+					});
 				}
 			}]
-		});
-		prompt.present();
+		}).present();
 	}
-	
+
 	acceptOrder() {
-		let prompt = this.alertCtrl.create({
+		this.alertCtrl.create({
 			title: 'Aceptar pedido',
 			message: "Atención! Aceptar el pedido implica que está entregado. ¿Estás seguro?",
 			buttons: [{
 				text: 'Cancelar'
 			}, {
 				text: 'Aceptar',
-				handler: data => {
+				handler: () => {
 					this.loading.createAnimation('Aceptando pedido...');
-					this.orderProvider.acceptOrder(this.order._id)
-						.then(() => {
-							this.loading.stopAnimation();
-							this.navCtrl.pop();
-						}).catch(error => {
-							this.setToastMessage(error.message);
-							this.loading.stopAnimation();
-						});
+					this.orderProvider.acceptOrder(this.order._id, true).then(() => {
+						this.navCtrl.pop();
+					}).catch(error => {
+						this.toast.setToastError(error);
+					}).then(() => {
+						this.loading.stopAnimation();
+					});
 				}
 			}]
-		});
-		prompt.present();
+		}).present();
 	}
 }
