@@ -68,6 +68,18 @@ export class ScheduleProvider {
 		
 	}
 
+	public updateSchedule(schedule) {
+		return this.authProvider.getCredentials().then(response => {
+			return this.http.put(
+				`${this.serverURL}schedule/${schedule._id}`,
+				JSON.stringify(schedule),
+				this.requestHeaders(response.token)
+			).toPromise().then(response => {
+				return response.json();
+			});
+		});
+	}
+
 	private requestHeaders(token) {
 		let headers = new Headers({ 'Authorization': 'Bearer ' + token });
 		headers.append('Content-Type', 'application/json');

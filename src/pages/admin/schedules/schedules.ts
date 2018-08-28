@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, AlertController } from 'ionic-angular';
 
 import { ScheduleProvider } from '../../../providers/schedule-provider';
 import { LoadingComponent } from '../../../components/loading/loading';
@@ -16,7 +16,6 @@ export class SchedulesPage {
     scheduleList: any
 
 	constructor(
-		private navCtrl: NavController,
 		private loading: LoadingComponent,
 		private scheduleProvider: ScheduleProvider,
 		private alertCtrl: AlertController,
@@ -47,38 +46,31 @@ export class SchedulesPage {
 			this.getSchedules();
 		}).catch(e => {
 			this.toast.setToastError(e);
+			this.loading.stopAnimation();
 		});
 	}
 	
 	updateSchedule(schedule) {
-
+		this.loading.createAnimation('Actualizando el estado del horario...');
+		this.scheduleProvider.updateSchedule(schedule).catch(e => {
+			this.toast.setToastError(e);
+		}).then(() => {
+			this.loading.stopAnimation();
+		});
 	}
 
-	deleteSchedule(key) {
-		this.alertCtrl.create({
-			title: 'Borrar franja horaria',
-			message: '¿Estás seguro que quieres eliminar esta franja horaria?</b>',
-			buttons: [{
-				text: 'Cancelar'
-			}, {
-				text: 'Aceptar',
-				handler: () => {
-					// this.loading.createAnimation('Borrando intolerancia...');
-					// this.intoleranceProvider.deleteIntolerance(this.intoleranceList[key]._id).then(() => {
-					// 	this.getIntolerances();
-					// }).catch(e => {
-					// 	this.toast.setToastError(e);
-					// });
-				}
-			}]
-		}).present();
+	updateTime(event, schedule, element) {
+		const hours = event.hours === 0 ? '00' : event.hours < 10 ? '0' : '' + event.hour;
+		const minutes = event.minute === 0 ? '00' : event.minute < 10 ? '0' : '' + event.minute;
+
+		schedule[element] = parseInt(hours + minutes, 10);
+
+		this.updateSchedule(schedule);
 	}
+
 
 	formatTime(time) {
-		if (time === 0) {
-			return '00:00';
-		}
-		return moment(time, "hmm").format("HH:mm");
+		return moment(time, "HHmm").format("HH:mm");
 	}
 
 	displayPrompt(name = undefined) {

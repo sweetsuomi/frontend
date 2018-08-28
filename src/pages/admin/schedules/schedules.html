@@ -16,17 +16,17 @@
                 <ion-card-header>
                     <div style="display: flex; justify-content: space-between; align-items:center">
                         <p>{{schedule.name}}</p>
-                        <ion-toggle [(ngModel)]="schedule.enabled" (ion-change)="updateSchedule(schedule)"></ion-toggle>
+                        <ion-toggle [(ngModel)]="schedule.enabled" (ionChange)="updateSchedule(schedule)"></ion-toggle>
                     </div>
                 </ion-card-header>
-                <ion-card-content>
+                <ion-card-content *ngIf="schedule.enabled">
                     <div style="display: flex; justify-content: space-between; align-items:center">
                         <ion-label>Hora de inicio</ion-label>
-                        <ion-datetime displayFormat="HH:mm" [ngModel]="formatTime(schedule.timeStart)" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateSchedule(schedule)"></ion-datetime>
+                        <ion-datetime displayFormat="HH:mm" [ngModel]="formatTime(schedule.timeStart)" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeStart')"></ion-datetime>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items:center">
                         <ion-label>Hora de fin</ion-label>
-                        <ion-datetime displayFormat="HH:mm" [ngModel]="formatTime(schedule.timeEnd)" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateSchedule(schedule)"></ion-datetime>
+                        <ion-datetime displayFormat="HH:mm" [ngModel]="formatTime(schedule.timeEnd)" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeEnd')"></ion-datetime>
                     </div>
                 </ion-card-content>
             </ion-card>
