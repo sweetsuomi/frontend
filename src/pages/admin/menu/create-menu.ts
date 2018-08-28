@@ -41,7 +41,7 @@ export class CreateMenuPage {
 		this.loading.createAnimation('Cargando listado de platos...');
 		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.date = new Date().toISOString().split('T')[0];
-		this.scheduleProvider.getSchedules().then(response => {
+		this.scheduleProvider.getSchedules(true).then(response => {
 			this.schedule = response;
 			this.timeSelected = 0;
 			return this.categoryProvider.loadCategories();
