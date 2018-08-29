@@ -22,11 +22,11 @@
                 <ion-card-content *ngIf="schedule.enabled">
                     <div style="display: flex; justify-content: space-between; align-items:center">
                         <ion-label>Hora de inicio</ion-label>
-                        <ion-datetime displayFormat="HH:mm" [ngModel]="formatTime(schedule.timeStart)" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeStart')"></ion-datetime>
+                        <ion-datetime displayFormat="HH:mm" [ngModel]="schedule.timeStart" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeStart')"></ion-datetime>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items:center">
                         <ion-label>Hora de fin</ion-label>
-                        <ion-datetime displayFormat="HH:mm" [ngModel]="formatTime(schedule.timeEnd)" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeEnd')"></ion-datetime>
+                        <ion-datetime displayFormat="HH:mm" [ngModel]="schedule.timeEnd" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeEnd')"></ion-datetime>
                     </div>
                 </ion-card-content>
             </ion-card>

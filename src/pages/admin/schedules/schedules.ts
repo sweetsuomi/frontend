@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class SchedulesPage {
 
-    scheduleList: any
+	scheduleList: any
 
 	constructor(
 		private loading: LoadingComponent,
@@ -23,22 +23,22 @@ export class SchedulesPage {
 	) { }
 
 	ionViewDidLoad() {
-        this.loading.createAnimation('Cargando listado de horarios...');
-    }
-    
+		this.loading.createAnimation('Cargando listado de horarios...');
+	}
+
 	ionViewDidEnter() {
-        this.getSchedules();
-    }
-    
-    getSchedules() {
-        this.scheduleList = [];
-        this.scheduleProvider.getSchedules().then(response => {
-            this.scheduleList = response;
-        }).catch(e => {
-            this.toast.setToastError(e);
-        }).then(() => {
-            this.loading.stopAnimation();
-        });
+		this.getSchedules();
+	}
+
+	getSchedules() {
+		this.scheduleList = [];
+		this.scheduleProvider.getSchedules().then(response => {
+			this.formatTime(response);
+		}).catch(e => {
+			this.toast.setToastError(e);
+		}).then(() => {
+			this.loading.stopAnimation();
+		});
 	}
 
 	createSchedule() {
@@ -49,7 +49,7 @@ export class SchedulesPage {
 			this.loading.stopAnimation();
 		});
 	}
-	
+
 	updateSchedule(schedule) {
 		this.loading.createAnimation('Actualizando el estado del horario...');
 		this.scheduleProvider.updateSchedule(schedule).catch(e => {
@@ -60,17 +60,23 @@ export class SchedulesPage {
 	}
 
 	updateTime(event, schedule, element) {
-		const hours = event.hours === 0 ? '00' : event.hours < 10 ? '0' : '' + event.hour;
-		const minutes = event.minute === 0 ? '00' : event.minute < 10 ? '0' : '' + event.minute;
+		const hours = event.hour === 0 ? '00' : event.hour < 10 ? '0' + event.hour : '' + event.hour;
+		const minutes = event.minute === 0 ? '00' : event.minute < 10 ? '0' + event.minute : '' + event.minute;
 
-		schedule[element] = parseInt(hours + minutes, 10);
+		schedule[element] = hours + ':' + minutes;
 
 		this.updateSchedule(schedule);
 	}
 
 
-	formatTime(time) {
-		return moment(time, "HHmm").format("HH:mm");
+	formatTime(data) {
+		this.scheduleList = data.map(function (element) {
+			const timeStart = element.timeStart < 10 ? '000' + element.timeStart : element.timeStart < 100 ? '00' + element.timeStart : element.timeStart < 1000 ? '0' + element.timeStart : element.timeStart;
+			const timeEnd = element.timeEnd < 10 ? '000' + element.timeEnd : element.timeEnd < 100 ? '00' + element.timeEnd : element.timeEnd < 1000 ? '0' + element.timeEnd : element.timeEnd;
+			element.timeStart = moment(timeStart, "HHmm").format("HH:mm")
+			element.timeEnd = moment(timeEnd, "HHmm").format("HH:mm")
+			return element;
+		})
 	}
 
 	displayPrompt(name = undefined) {
