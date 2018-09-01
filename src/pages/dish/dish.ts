@@ -66,7 +66,7 @@ export class DishPage {
 				handler: data => {
 					const quantity = parseInt(data.quantity);
 					if (!isNaN(quantity) && quantity <= this.dish.quantity && quantity > 0) {
-						this.orderProvider.addDishToOrder(this.dish.dish, quantity);
+						this.orderProvider.addDishToOrder(this.dish._id, this.dish.dish, quantity);
 						this.navCtrl.pop();
 					} else {
 						this.toast.setToastError(new Error("Introduce una cantidad válida menor o igual que la cantidad de unidades displonibles"));

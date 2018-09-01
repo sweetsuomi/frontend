@@ -31,10 +31,14 @@ export class ScheduleProvider {
 
 	public getScheduleFinishFirst() {
 		return this.getSchedule().then(() => {
-			let time = 2399;
+			let time = {
+				end: 2359,
+				id: ''
+			};
 			this.schedule.forEach(element => {
-				if (element.timeEnd < time) {
-					time = element.timeEnd
+				if (element.timeEnd < time.end) {
+					time.end = element.timeEnd;
+					time.id = element._id;
 				}
 			});
 			return time;

@@ -1,54 +1,44 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { LoadingComponent } from '../../components/loading/loading';
 import { GlobalProvider } from '../../providers/global-provider';
 import { MenuProvider } from '../../providers/menu-provider';
 import { OrderProvider } from '../../providers/order-provider';
+import { ToastComponent } from '../../components/toast/toast';
 
 @IonicPage()
 @Component({
-  selector: 'page-order',
-  templateUrl: 'order.html',
+	selector: 'page-order',
+	templateUrl: 'order.html',
 })
 export class OrderPage {
 
-  private cloudFrontURL: String;
+	private cloudFrontURL: String;
 	private order;
 
-  constructor(
+	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		private toastCtrl: ToastController,
+		private toast: ToastComponent,
 		private loading: LoadingComponent,
 		private globalProvider: GlobalProvider,
 		private alertCtrl: AlertController,
 		private menuProvider: MenuProvider,
 		private orderProvider: OrderProvider
-	) {}
+	) { }
 
-  ionViewDidLoad() {
+	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando pedido...');
 		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.order = this.orderProvider.getSpecificOrder(this.navParams.get('order'));
 		this.loading.stopAnimation();
 		this.checkUpdate()
 	}
-	
-	setToastMessage(message) {
-		let toast = this.toastCtrl.create({
-			message: message,
-			duration: 3000,
-			position: 'top'
-		});
-		toast.present();
-	}
-	
+
 	checkUpdate() {
 		var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-		var date2 = (new Date(Date.now() - tzoffset));		
+		var date2 = (new Date(Date.now() - tzoffset));
 		var date1 = new Date(this.order.date)
 		var timeDiff = (date1.getTime() - date2.getTime()) / (1000 * 3600);
 		if (timeDiff > 1) {
@@ -56,7 +46,7 @@ export class OrderPage {
 		}
 		return false;
 	}
-	
+
 	deleteOrder() {
 		// let prompt = this.alertCtrl.create({
 		// 	title: 'Eliminar pedido',
@@ -85,7 +75,7 @@ export class OrderPage {
 		// });
 		// prompt.present();
 	}
-	
+
 	updateOrder() {
 		// let prompt = this.alertCtrl.create({
 		// 	title: 'Modificar pedido',
