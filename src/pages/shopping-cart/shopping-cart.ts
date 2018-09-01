@@ -7,7 +7,7 @@ import { ScheduleProvider } from '../../providers/schedule-provider';
 
 import { LoadingComponent } from '../../components/loading/loading';
 import { ToastComponent } from '../../components/toast/toast';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -44,7 +44,7 @@ export class ShoppingCartPage {
 		this.scheduleProvider.getScheduleFinishFirst().then(time => {
 			this.time = {
 				minTime: moment().add(15, 'minutes').format('HH:mm'),
-				maxTime: moment(time, "hmm").format("HH:mm")
+				maxTime: moment(time.end, "hmm").format("HH:mm")
 			};
 			this.date = moment().format('HH:mm');
 		});
@@ -66,15 +66,16 @@ export class ShoppingCartPage {
 	}
 	
 	postOrder() {
-		// this.orderProvider.postOrder().then(() => {
+		this.orderProvider.postOrder(this.order, this.date).then(() => {
+			this.orderProvider.pending = {};
 			this.navCtrl.setRoot('TicketPage');
-		// }).catch(e => {
-		// 	if (e.message === "The user is not logged") {
-		// 		this.navCtrl.push('LoginOrderPage');
-		// 	} else {
-		// 		this.toast.setToastMessage(e.message);
-		// 	}
-		// });
+		}).catch(e => {
+			if (e.message === "The user is not logged") {
+				this.navCtrl.push('LoginOrderPage');
+			} else {
+				this.toast.setToastError(e);
+			}
+		});
 	}
 	
 	objectKeys = Object.keys;

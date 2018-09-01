@@ -11,6 +11,7 @@ export class OrderProvider {
 	order: any;
 	price: number;
 	orderList: any;
+	pending: any;
 
 	constructor(
 		private http: Http,
@@ -18,6 +19,7 @@ export class OrderProvider {
 		private authProvider: AuthProvider
 	) {
 		this.serverURL = this.globalProvider.serverURL;
+		this.pending = {};
 		this.newOrder();
 	}
 
@@ -29,8 +31,9 @@ export class OrderProvider {
 		this.price = 0;
 	}
 
-	addDishToOrder(dish, quantity) {
+	addDishToOrder(menuId, dish, quantity) {
 		this.order.orderDish[dish._id] = {
+			menuId: menuId,
 			dish: dish,
 			quantity: quantity
 		};
@@ -108,7 +111,33 @@ export class OrderProvider {
 		});
 	}
 
+	postOrder(order, time) {
+		var orders = [];
+		for (let element in order.orderDish) {
+			orders.push(order.orderDish[element]);
+		}
+		this.pending = { order: orders, note: order.note, time: time };
+		return this.authProvider.getCredentials().then(response => {
+			return this.http.post(
+				`${this.serverURL}order`,
+				JSON.stringify({ order: orders, note: order.note, time: time }),
+				this.requestHeaders(response.token)
+			).toPromise();
+		});
+	}
 
+	postPendingOrder() {
+		if (Object.keys(this.pending).length === 0) {
+			throw new Error();
+		}
+		return this.authProvider.getCredentials().then(response => {
+			return this.http.post(
+				`${this.serverURL}order`,
+				JSON.stringify(this.pending),
+				this.requestHeaders(response.token)
+			).toPromise();
+		});
+	}
 
 
 
@@ -130,27 +159,6 @@ export class OrderProvider {
 		d.setMinutes(Number(this.order.date.slice(3, 5)));
 		this.order.date = d.toISOString();
 		return d;
-	}
-
-	postOrder() {
-		return this.order.validations().then(() => {
-			return this.authProvider.getCredentials();
-		}).then(response => {
-			const params = {
-				order: this.order.orderDish,
-				date: this.formatDate(),
-				note: this.order.note
-			};
-			return this.http.post(
-				`${this.serverURL}order`,
-				params,
-				this.requestHeaders(response.token)
-			).toPromise();
-		}).catch(e => {
-			if (e) {
-				throw new Error(e.message);
-			}
-		});
 	}
 
 	public getUserOrderList(date) {
@@ -197,7 +205,7 @@ export class OrderProvider {
 
 	public recreateMenuDeleted(order) {
 		for (let i = 0; i < order.dishes.length; i += 1) {
-			this.addDishToOrder(order.dishes[i].dish, order.dishes[i].quantity);
+			// this.addDishToOrder(order.dishes[i].dish, order.dishes[i].quantity);
 		}
 		console.log(this.order);
 	}
