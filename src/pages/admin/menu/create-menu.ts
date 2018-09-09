@@ -9,6 +9,7 @@ import { CategoryProvider } from '../../../providers/category-provider';
 
 import { LoadingComponent } from '../../../components/loading/loading';
 import { ToastComponent } from '../../../components/toast/toast';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -40,7 +41,7 @@ export class CreateMenuPage {
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado de platos...');
 		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
-		this.date = new Date().toISOString().split('T')[0];
+		this.date = moment().format("YYYY-MM-DD");
 		this.scheduleProvider.getSchedules(true).then(response => {
 			this.schedule = response;
 			this.timeSelected = 0;

@@ -11,5 +11,7 @@ export class GlobalProvider {
 	public cloudFrontURL: String = "https://d3ksovztvyvzlz.cloudfront.net/"; // Development & Beta
 	// public cloudFrontURL: String = "https://s3-eu-west-1.amazonaws.com/beta.resources.sweetsuomi.com/"; // Production
 
+	public removeDishFromMenu = 15;
+
 	constructor() { }
 }

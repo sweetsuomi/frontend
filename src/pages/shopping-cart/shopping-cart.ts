@@ -3,7 +3,6 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { ItemSliding } from 'ionic-angular';
 import { GlobalProvider } from '../../providers/global-provider';
 import { OrderProvider } from '../../providers/order-provider';
-import { ScheduleProvider } from '../../providers/schedule-provider';
 
 import { LoadingComponent } from '../../components/loading/loading';
 import { ToastComponent } from '../../components/toast/toast';
@@ -11,8 +10,8 @@ import moment from 'moment';
 
 @IonicPage()
 @Component({
-  selector: 'page-shopping-cart',
-  templateUrl: 'shopping-cart.html',
+	selector: 'page-shopping-cart',
+	templateUrl: 'shopping-cart.html',
 })
 export class ShoppingCartPage {
 
@@ -21,17 +20,16 @@ export class ShoppingCartPage {
 	private resume: any;
 	private time: any;
 	private date: String;
-  
-  	constructor(
-	  	private globalProvider: GlobalProvider,
-	  	private orderProvider: OrderProvider,
-	  	private scheduleProvider: ScheduleProvider,
-	  	private navCtrl: NavController,
+
+	constructor(
+		private globalProvider: GlobalProvider,
+		private orderProvider: OrderProvider,
+		private navCtrl: NavController,
 		private loading: LoadingComponent,
 		private toast: ToastComponent
-	) {}
+	) { }
 
-  	ionViewDidLoad() {
+	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando pedido...');
 		this.cloudFrontURL = this.globalProvider.cloudFrontURL;
 		this.setupTimes();
@@ -41,18 +39,28 @@ export class ShoppingCartPage {
 	}
 
 	setupTimes() {
-		this.scheduleProvider.getScheduleFinishFirst().then(time => {
-			this.time = {
-				minTime: moment().add(15, 'minutes').format('HH:mm'),
-				maxTime: moment(time.end, "hmm").format("HH:mm")
-			};
-			this.date = moment().format('HH:mm');
-		});
+		const orderDish = this.orderProvider.order.orderDish;
+		const time = Object.keys(orderDish)
+			.map(index => orderDish[index].schedule)
+			.reduce((previous, current) => current.timeEnd > previous.timeEnd ? previous.timeEnd : current.timeEnd);
+
+		const minTime = moment().add(this.globalProvider.removeDishFromMenu, 'minutes');
+		const maxTime = moment(typeof time === 'object' ? time.timeEnd : time, "LT");
+		const timeError = minTime.isAfter(maxTime);
+
+		this.time = {
+			minTime: minTime.format('HH:mm'),
+			maxTime: maxTime.format("HH:mm"),
+			error: timeError
+		};
+
+		this.date = this.time.minTime;
 	}
-	
+
 	removeDishFromOrder(key) {
 		this.orderProvider.removeDishFromOrder(key);
 		this.resume = this.orderProvider.getOrderMenuResume();
+		this.setupTimes();
 		if (this.resume.quantity === 0) {
 			this.navCtrl.pop();
 		}
@@ -64,7 +72,7 @@ export class ShoppingCartPage {
 			this.removeDishFromOrder(key);
 		}, 500);
 	}
-	
+
 	postOrder() {
 		this.orderProvider.postOrder(this.order, this.date).then(() => {
 			this.orderProvider.pending = {};
@@ -77,6 +85,6 @@ export class ShoppingCartPage {
 			}
 		});
 	}
-	
+
 	objectKeys = Object.keys;
 }

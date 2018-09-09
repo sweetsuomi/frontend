@@ -8,15 +8,19 @@ import { MenuNavComponent } from './nav/nav';
 
 @NgModule({
 	declarations: [
-		MenuNavComponent
+		MenuNavComponent,
+		LoadingComponent,
+		ToastComponent
 	],
 	imports: [IonicModule],
 	exports: [
-		MenuNavComponent
+		MenuNavComponent,
+		LoadingComponent,
+		ToastComponent
 	],
 	providers: [
 		LoadingComponent,
-		ToastComponent,
+		ToastComponent
 	]
 })
 

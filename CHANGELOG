@@ -1,2 +1,12 @@
-v0.3.2
-- Fix admin orders screen
+v0.3.3
+- Fix a problem with fonts. Now are loading fine
+- Fix an issue with images in production. Not being found because of android assets path
+- Fix an issue with components, not being added
+- Rename the header of the nav from Menu to Sweetsuomi
+- Fix an issue with datetimes selector for date. Replace new Date for moment.
+- Some extra renamed titles
+- Fix an issue with shopping-cart component. It is now checking the closest end time by looking to the selected dishes. Before it was checking the closest time to now
+- Removed price at the beginning of shopping-cart since it is in the call to action button
+- Prevent for showing the dish in the menu 15 min before its time ends.
+- Remove some useless methods.
+- Fix an issue with datetime at shopping-cart

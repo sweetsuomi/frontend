@@ -4,7 +4,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { OrderProvider } from '../../../../providers/order-provider';
 import { LoadingComponent } from '../../../../components/loading/loading';
 import { ToastComponent } from '../../../../components/toast/toast';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
@@ -24,7 +24,7 @@ export class AdminOrderPage {
 	) { }
 
 	ionViewDidLoad() {
-		this.date = new Date().toISOString().split('T')[0];
+		this.date = moment().format("YYYY-MM-DD");
 	}
 
 	ionViewDidEnter() {

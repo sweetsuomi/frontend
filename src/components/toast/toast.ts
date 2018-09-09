@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 
 @Component({
-  selector: 'toast'
+  selector: 'toast',
+  template: ''
 })
 
 export class ToastComponent {
