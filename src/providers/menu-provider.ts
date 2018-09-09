@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { GlobalProvider } from './global-provider';
 import { AuthProvider } from '../providers/auth-provider';
+import moment from 'moment';
 
 @Injectable()
 export class MenuProvider {
@@ -53,7 +54,7 @@ export class MenuProvider {
 		return Promise.resolve(object);
 	}
 
-	public filterGroupByCategory(): Promise<void> {
+	public filterGroupByCategory() {
 		let object = {};
 		for (let dish in this.menuList) {
 			const categoryName = this.menuList[dish].dish.category.name;
@@ -67,6 +68,16 @@ export class MenuProvider {
 		}
 		this.menuList = object;
 		return Promise.resolve();
+	}
+
+	/**
+	 * This method filter the menu from dishes that its end time is close to the store to be closed
+	 * @param {Number} time The gap between the current time and the schedule end time
+	 */
+	public filterMenuByTimeEnd(time) {
+		this.menuList = this.menuList.filter(element => 
+			element.schedule.timeEnd > parseInt(moment().add(time, 'minutes').format('HH:mm').replace(':', ''), 10)
+		);
 	}
 
 	public getDishFromMenu(category, dishId): Object {

@@ -25,16 +25,17 @@ export class OrderProvider {
 
 	newOrder() {
 		this.order = {
-			orderDish: [],
+			orderDish: {},
 			quantity: 0,
 		};
 		this.price = 0;
 	}
 
 	addDishToOrder(menuId, dish, quantity) {
-		this.order.orderDish[dish._id] = {
+		this.order.orderDish[dish.dish._id] = {
 			menuId: menuId,
-			dish: dish,
+			dish: dish.dish,
+			schedule: dish.schedule,
 			quantity: quantity
 		};
 	}
@@ -151,15 +152,6 @@ export class OrderProvider {
 
 
 
-	formatDate() {
-		var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-
-		var d = (new Date(Date.now() - tzoffset));
-		d.setHours(Number(this.order.date.slice(0, -3)) + 1);
-		d.setMinutes(Number(this.order.date.slice(3, 5)));
-		this.order.date = d.toISOString();
-		return d;
-	}
 
 	public getUserOrderList(date) {
 		return this.authProvider.getCredentials().then(response => {
@@ -190,24 +182,6 @@ export class OrderProvider {
 
 	public getSpecificOrder(key) {
 		return this.orderList[key];
-	}	
-
-	public updateOrder(order) {
-		return this.authProvider.getCredentials().then(response => {
-			return this.http.delete(
-				`${this.serverURL}order?orderId=${order._id}&date=${order.date}`,
-				this.requestHeaders(response.token)
-			).toPromise();
-		}).catch(e => {
-			return Promise.reject(new Error(e.json().msg));
-		});
-	}
-
-	public recreateMenuDeleted(order) {
-		for (let i = 0; i < order.dishes.length; i += 1) {
-			// this.addDishToOrder(order.dishes[i].dish, order.dishes[i].quantity);
-		}
-		console.log(this.order);
 	}
 
 	private requestHeaders(token): RequestOptions {

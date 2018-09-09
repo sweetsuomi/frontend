@@ -5,7 +5,6 @@
 </ion-header>
 <ion-content>
 	<div class="box-ticket-shopping-cart" *ngIf="order">
-		<p class="price-total-text" *ngIf="order">Total: {{resume.price | number:'1.2'}}€</p>
 		<div class="box-info">
 			<div class="info-shopping-cart">
 				<h3 class="title-shopping-cart">RECOGER EN LOCAL</h3>
@@ -23,9 +22,10 @@
 			</div>
 			<div class="info-shopping-cart" *ngIf="time">
 				<h3 class="title-shopping-cart">HORA DE RECOGIDA</h3>
-				<ion-item>
-					<ion-datetime class="date-text-info" displayFormat="HH:mm" min="{{time.minTime}}" max="{{time.maxTime}}" pickerFormat="HH mm" minuteValues="[15,30,45,55]" cancelText="Cancelar" doneText="Aceptar" [(ngModel)]="date"></ion-datetime>
+				<ion-item *ngIf="!time.error">
+					<ion-datetime class="date-text-info" displayFormat="HH:mm" min="{{time.minTime}}" max="{{time.maxTime}}" pickerFormat="HH mm" cancelText="Cancelar" doneText="Aceptar" [(ngModel)]="date"></ion-datetime>
 				</ion-item>
+				<p *ngIf="time.error">Alguno de tus platos ya no está disponible</p>
 			</div>
 		</div>
 		<div class="box-shopping-cart">
@@ -57,4 +57,4 @@
 		</ion-list>
 	</div>
 </ion-content>
-<button ion-button class="box-button-pedido" *ngIf="order" (click)="postOrder()">Reservar pedido ({{resume.price | number:'1.2'}}€)</button>
+<button ion-button class="box-button-pedido" *ngIf="order && !time.error" (click)="postOrder()">Reservar pedido ({{resume.price | number:'1.2'}}€)</button>

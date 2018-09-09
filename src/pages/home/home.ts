@@ -47,6 +47,7 @@ export class HomePage {
 	getMenu() {
 		this.loading.createAnimation('Cargando plato...');
 		return this.menuProvider.getMenu(null, null).then(() => {
+			this.menuProvider.filterMenuByTimeEnd(this.globalProvider.removeDishFromMenu);
 			return this.menuProvider.filterGroupByCategory();
 		}).then(() => {
 			if (!Object.keys(this.menuProvider.menuList).length) {
