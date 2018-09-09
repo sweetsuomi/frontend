@@ -23,7 +23,7 @@
 			<div class="info-shopping-cart" *ngIf="time">
 				<h3 class="title-shopping-cart">HORA DE RECOGIDA</h3>
 				<ion-item *ngIf="!time.error">
-					<ion-datetime class="date-text-info" displayFormat="HH:mm" min="{{time.minTime}}" max="{{time.maxTime}}" pickerFormat="HH mm" cancelText="Cancelar" doneText="Aceptar" [(ngModel)]="date"></ion-datetime>
+					<ion-datetime class="date-text-info" displayFormat="HH:mm" [min]="time.patata" [max]="time.maxTime" pickerFormat="HH mm" cancelText="Cancelar" doneText="Aceptar" [(ngModel)]="date"></ion-datetime>
 				</ion-item>
 				<p *ngIf="time.error">Alguno de tus platos ya no está disponible</p>
 			</div>

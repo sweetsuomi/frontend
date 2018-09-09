@@ -54,7 +54,7 @@ export class ShoppingCartPage {
 			error: timeError
 		};
 
-		this.date = moment().format('HH:mm');
+		this.date = this.time.minTime;
 	}
 
 	removeDishFromOrder(key) {
