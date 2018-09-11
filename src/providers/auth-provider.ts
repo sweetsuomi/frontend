@@ -31,10 +31,9 @@ export class AuthProvider {
 			const email_regexp = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 			const email = this.auth.email;
 			const password = this.auth.password;
-
 			if (typeof email === undefined || email === '') {
 				return reject(new Error("El campo email no puede estar vacío"));
-			} else if (!email_regexp.test(email) || typeof email !== 'string') {
+			} else if (!email_regexp.test(email.trim()) || typeof email !== 'string') {
 				return reject(new Error("El email debe ser válido"));
 			} else if (email.length < 8) {
 				return reject(new Error("Prueba con un email mas largo"));
