@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
 
 import { OrderProvider } from '../../providers/order-provider';
 import { LoadingComponent } from '../../components/loading/loading';
+import { ToastComponent } from '../../components/toast/toast';
 import moment from 'moment';
 
 @IonicPage()
@@ -19,7 +19,7 @@ export class OrdersPage {
 	constructor(
 		private loading: LoadingComponent,
 		private orderProvider: OrderProvider,
-		private toastCtrl: ToastController,
+		private toast: ToastComponent,
 		private navCtrl: NavController
 	) { }
 
@@ -34,9 +34,9 @@ export class OrdersPage {
 
 	loadOrders() {
 		this.orderProvider.getOrderList(this.date).then(response => {
-			this.orderList = response;
+			this.orderList = Object.keys(response).map(key => response[key]);
 		}).catch(e => {
-			this.setToastMessage(e.message);
+			this.toast.setToastError(e);
 		}).then(() => {
 			this.loading.stopAnimation();
 		});
@@ -48,25 +48,9 @@ export class OrdersPage {
 		this.loadOrders();
 	}
 
-	formatDate(date) {
-		return date.split('T')[1].slice(0, -8);
-	}
-
-	setToastMessage(message) {
-		let toast = this.toastCtrl.create({
-			message: message,
-			duration: 3000,
-			position: 'top'
-		});
-		toast.present();
-	}
-
-	public goToOrderDetail(key) {
+	goToOrderDetail(key) {
 		this.navCtrl.push('OrderPage', {
 			order: key
 		});
 	}
-
-	public objectKeys = Object.keys;
-
 }

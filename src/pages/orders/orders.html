@@ -9,16 +9,15 @@
 			<ion-label>Fecha del menu</ion-label>
 			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date" cancelText="Cancelar" min="2017-12-11" max="2117-12-31" doneText="Aceptar" (ionChange)="changeDate()"></ion-datetime>
     </ion-item>
-		<section class="orders-list" *ngFor="let order of objectKeys(orderList)">
-			<div class="orders-elements" ion-button (click)="goToOrderDetail(order)">
+		<section class="orders-list" *ngFor="let order of orderList; let i = index">
+			<div class="orders-elements" ion-button (click)="goToOrderDetail(i)">
 				<div class="date-orders">
-					<h4 class="date-orders-title" ion-text color="secondary">{{formatDate(orderList[order].date)}}</h4>
-					<p class="orders-status-elements">Estado del pedido:
-						<span *ngIf="!orderList[order].isDelivered">Pendiente</span>
-						<span *ngIf="orderList[order].isDelivered">Confirmado</span>
+					<p class="orders-status-elements">Estado del pedido
+						<b><span *ngIf="!order.isDelivered">Pendiente</span></b>
+						<b><span *ngIf="order.isDelivered">Confirmado</span></b>
 					</p>
 				</div>
-				<h4 ion-text color="secondary">{{orderList[order].price | number:'1.2'}}€</h4>
+				<h4 ion-text color="secondary">{{order.price | number:'1.2'}}€</h4>
 			</div>
 		</section>
 	</article>
