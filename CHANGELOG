@@ -1,7 +1,2 @@
-v1.3.4
-- Remove specified landscape resources in config.xml & updated versions
-- Added package-lock.json to .gitignore
-- Fixed a problem with statusbar
-- Fixed userOrder
-- Trim user preventing wrong email submits
-- Remove some useless piece of code at order-provider.ts
+v1.3.5
+- Android & iOS builds

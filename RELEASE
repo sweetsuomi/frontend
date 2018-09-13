@@ -1,3 +1,11 @@
+v1.3.4
+- Remove specified landscape resources in config.xml & updated versions
+- Added package-lock.json to .gitignore
+- Fixed a problem with statusbar
+- Fixed userOrder
+- Trim user preventing wrong email submits
+- Remove some useless piece of code at order-provider.ts
+
 v0.3.3
 - Fix a problem with fonts. Now are loading fine
 - Fix an issue with images in production. Not being found because of android assets path
