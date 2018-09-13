@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 
 @Component({
-  selector: 'toast'
+  selector: 'toast',
+  template: ''
 })
 
 export class ToastComponent {
@@ -24,7 +25,8 @@ export class ToastComponent {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 4000,
-			position: 'top'
+			position: 'top',
+			dismissOnPageChange: true,
 		});
 
 		toast.present();

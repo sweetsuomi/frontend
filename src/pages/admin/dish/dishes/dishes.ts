@@ -14,7 +14,7 @@ import { ToastComponent } from '../../../../components/toast/toast';
 })
 export class DishesPage {
 
-	cloudFrontURL: String;
+	s3Url: String;
 	dishList: Array<any>;
 	currentDateTime: number;
 	menuDay: any;
@@ -33,15 +33,19 @@ export class DishesPage {
 
 	ionViewDidLoad() {
 		this.loading.createAnimation('Cargando listado...');
-		this.cloudFrontURL = this.globalProvider.getCloudFrontUrl();
-		this.currentDateTime = new Date().getTime();
+		this.s3Url = this.globalProvider.s3Url;
 		this.offset = 0;
 		this.limit = 10;
 		this.loadMenuDay();
 		this.loadDishes();
 	}
 
+	ionViewDidEnter() {
+		this.currentDateTime = new Date().getTime();
+	}
+
 	loadMenuDay() {
+		this.dishProvider.dishList = [];
 		this.menuProvider.getMenu().then(() => {
 			return this.menuProvider.filterMenuListGroupById();
 		}).then(response => {
@@ -52,9 +56,9 @@ export class DishesPage {
 	}
 
 	loadDishes() {
-		this.dishProvider.loadDishes(0, this.offset, this.limit).then(response => {
+		this.dishProvider.loadDishes(0, this.offset, this.limit).then(() => {
 			this.offset += this.limit;
-			this.dishList = response;
+			this.dishList = this.dishProvider.dishList
 		}).catch(e => {
 			this.toast.setToastError(e);
 		}).then(() => {
@@ -63,12 +67,10 @@ export class DishesPage {
 	}
 
 	doInfinite(infiniteScroll) {
-		this.dishProvider.loadDishes(0, this.offset, this.limit).then(response => {
+		this.dishProvider.loadDishes(0, this.offset, this.limit).then(() => {
 			this.offset += this.limit;
+			this.dishList = this.dishProvider.dishList;
 			setTimeout(() => {
-				for (let i = 0; i < response.length; i++) {
-					this.dishList.push(response[i]);
-				}
 				infiniteScroll.complete();
 			}, 500);
 		}).catch(e => {
@@ -107,7 +109,7 @@ export class DishesPage {
 
 	goToDishDetail(key) {
 		this.navCtrl.push('UpdateDishPage', {
-			dish: key
+			key: key
 		});
 	}
 }

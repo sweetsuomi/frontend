@@ -5,10 +5,8 @@
 </ion-header>
 <ion-content>
     <div class="info-intolerances" *ngIf="intolerance">
-        <div class="img-intolerances">
-            <input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
-            <img src="{{imageUrl.base64}}" alt="pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'" />
-        </div>
+        <input type="file" accept="image/png" #file style="display:none;" (change)="imageUpload($event)" />
+        <img *ngIf="imageUrl" src="{{imageUrl}}" alt="dish_pic" (click)="file.click()" onError="this.src='./assets/img/undefinedImg.png'"/>
         <div class="text-update-intolerance">
             <ion-item>
                 <ion-label stacked color="dark">Título</ion-label>

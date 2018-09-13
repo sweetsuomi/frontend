@@ -124,16 +124,14 @@ ion-item-sliding .box-item {
   font-size: 14px;
 }
 
-.price-total-text {
-  text-align: right;
-  font-size: 18px;
-  color: #ff9500;
+.price-total-text-order {
+  text-align: left;
+  font-size: 18px !important;
+  color: #ff9500 !important;
   font-weight: 700;
   margin: 0;
-  padding: 5px 20px;
   width: 100%;
-  background-color: white;
-  box-shadow: 0 2px 15px rgba(100, 100, 100, 0.1), 0 1px 0 rgba(100, 100, 100, 0.2);
+  margin-left: 0 !important;
 }
 
 .box-item .item-inner {
@@ -156,10 +154,6 @@ ion-item-sliding .box-item {
 .address-box {
   width: 100%;
   display: flex;
-}
-
-.address-box p {
-  margin-left: 20px;
 }
 
 .navbar-order .button-inner {

@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Horarios</ion-title>
+        <ion-buttons class="button-add-dishes" end>
+            <button (click)="createSchedule()" ion-button>
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <article class="container">
+        <section class="admin-intolerances-group" *ngIf="scheduleList">
+            <ion-card class="intolerances-group-elements" *ngFor="let schedule of scheduleList; let i = index">
+                <ion-card-header>
+                    <div style="display: flex; justify-content: space-between; align-items:center">
+                        <p>{{schedule.name}}</p>
+                        <ion-toggle [(ngModel)]="schedule.enabled" (ionChange)="updateSchedule(schedule)"></ion-toggle>
+                    </div>
+                </ion-card-header>
+                <ion-card-content *ngIf="schedule.enabled">
+                    <div style="display: flex; justify-content: space-between; align-items:center">
+                        <ion-label>Hora de inicio</ion-label>
+                        <ion-datetime displayFormat="HH:mm" [ngModel]="schedule.timeStart" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeStart')"></ion-datetime>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items:center">
+                        <ion-label>Hora de fin</ion-label>
+                        <ion-datetime displayFormat="HH:mm" [ngModel]="schedule.timeEnd" cancelText="Cancelar" min="00:00" max="23:59" doneText="Aceptar" (ionChange)="updateTime($event, schedule, 'timeEnd')"></ion-datetime>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </section>
+    </article>
+</ion-content>

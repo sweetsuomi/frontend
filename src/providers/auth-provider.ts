@@ -6,7 +6,7 @@ import { GlobalProvider } from './global-provider';
 
 @Injectable()
 export class AuthProvider {
-	
+
 	private serverURL: String;
 	private token: string;
 	private userId: string;
@@ -14,34 +14,33 @@ export class AuthProvider {
 	public role: string;
 	public auth;
 
-  constructor(
+	constructor(
 		private http: Http,
 		private globalProvider: GlobalProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 		this.auth = {
 			email: '',
 			password: ''
 		};
 		this.role = 'user';
 	}
-	
+
 	validate() {
 		return new Promise((resolve, reject) => {
 			const email_regexp = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 			const email = this.auth.email;
 			const password = this.auth.password;
-			
 			if (typeof email === undefined || email === '') {
 				return reject(new Error("El campo email no puede estar vacío"));
-			} else if (!email_regexp.test(email) || typeof email !== 'string') {
+			} else if (!email_regexp.test(email.trim()) || typeof email !== 'string') {
 				return reject(new Error("El email debe ser válido"));
 			} else if (email.length < 8) {
 				return reject(new Error("Prueba con un email mas largo"));
 			} else if (this.auth.email.length > 75) {
 				return reject(new Error("El email es un poco largo, prueba con uno que tenga menos caracteres"));
 			}
-			
+
 			if (typeof password === undefined || password === '') {
 				return reject(new Error("El campo contraseña no puede estar vacío"));
 			} else if (typeof password !== 'string' || password.length < 4 || password.length > 25) {
@@ -67,7 +66,7 @@ export class AuthProvider {
 		this.auth.email = this.auth.email.trim().toLowerCase();
 		this.auth.password = this.auth.password.trim();
 	}
-	
+
 	login() {
 		return this.validate().then(() => {
 			this.auth = {
@@ -80,7 +79,7 @@ export class AuthProvider {
 			this.initCredentials(credentials.userId, credentials.jwt, credentials.nickname, credentials.role);
 		});
 	}
-	
+
 	public register(user) {
 		let params = JSON.stringify({
 			email: this.auth.email,
@@ -91,7 +90,7 @@ export class AuthProvider {
 		});
 		return this.http.post(`${this.serverURL}account`, params, this.requestHeaders()).toPromise();
 	}
-	
+
 	public tryToInitCredentials() {
 		if (localStorage.getItem('suomiUser') != null) {
 			let suomiUser = JSON.parse(localStorage.getItem('suomiUser'));
@@ -100,14 +99,14 @@ export class AuthProvider {
 		}
 		return false;
 	}
-	
+
 	public isAdmin() {
 		if (this.role === 'Admin') {
 			return true;
 		}
 		return false;
 	}
-	
+
 	private initCredentials(userId, token, nickname, isAdmin) {
 		this.token = token;
 		this.userId = userId;
@@ -120,13 +119,13 @@ export class AuthProvider {
 			role: this.role
 		}));
 	}
-	
+
 	private requestHeaders() {
 		let headers = new Headers();
-    	headers.append('Content-Type', 'application/json');
+		headers.append('Content-Type', 'application/json');
 		return new RequestOptions({ headers: headers });
 	}
-	
+
 	public getCredentials() {
 		if (typeof this.token === 'undefined') {
 			if (!this.tryToInitCredentials()) {
@@ -146,7 +145,7 @@ export class AuthProvider {
 			role: this.role
 		});
 	}
-	
+
 	public logout() {
 		this.token = undefined;
 		this.userId = undefined;
@@ -155,5 +154,5 @@ export class AuthProvider {
 		localStorage.removeItem('suomiUser');
 		return Promise.resolve();
 	}
-	
+
 }

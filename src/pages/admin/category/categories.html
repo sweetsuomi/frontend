@@ -12,14 +12,14 @@
 <ion-content>
   <article class="container">
     <section class="admin-categories-group">
-      <div class="categories-group-elements">
-        <div class="categories-element" *ngFor="let category of categoryList; let i = index">
+      <div *ngIf="categoryList" class="categories-group-elements">
+        <div class="categories-element" *ngFor="let category of categoryList">
           <div> 
-            <div (click)="updateCategory(i)" class="categories-info">
+            <div (click)="updateCategory(category)" class="categories-info">
               <h4>{{category.name}}</h4>
             </div>
           </div>
-          <ion-icon class="icon-trash-categories" name="trash" ion-button (click)="deleteCategory(i)"></ion-icon>
+          <ion-icon class="icon-trash-categories" name="trash" ion-button (click)="deleteCategory(category)"></ion-icon>
         </div>
       </div>
     </section>

@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar class="navbar-admin-create-menu">
+        <ion-title>Estadísticas</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+    <div>
+        <ion-card *ngIf="stats.soldDishes">
+            <ion-card-content class="result-styles">
+                <h2>Nº total de platos</h2>
+                <p>{{stats.soldDishes.quantity}}</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="stats.soldDishes">
+            <ion-card-content class="result-styles">
+                <h2>Total de ganancias</h2>
+                <p>{{stats.soldDishes.money}}€</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="stats.usersCounter">
+            <ion-card-content class="result-styles">
+                <h2>Total de usuarios</h2>
+                <p>{{stats.usersCounter}}</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf="stats.ordersCounter">
+            <ion-card-content class="result-styles">
+                <h2>Pedidos totales</h2>
+                <p>{{stats.ordersCounter}}</p>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

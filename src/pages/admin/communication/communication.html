@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar class="navbar-feedback">
+        <ion-title>Comunicación</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <div class="content-opinion">
+        <div class="text-opinion">Informar a todos los usuarios</div>
+        <ion-item>
+            <ion-textarea placeholder="Mensaje" rows="6" maxlength="1000" value="" [(ngModel)]="message"></ion-textarea>
+        </ion-item>
+    </div>
+    <div class="dish-cta">
+        <button (click)="sendFeedback()">Enviar email</button>
+    </div>
+</ion-content>

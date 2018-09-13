@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UpdateIntolerancePage } from './update-intolerance';
+import { ComponentsModule } from '../../../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { UpdateIntolerancePage } from './update-intolerance';
   ],
   imports: [
     IonicPageModule.forChild(UpdateIntolerancePage),
+    ComponentsModule
   ],
 })
 export class UpdateIntolerancePageModule {}

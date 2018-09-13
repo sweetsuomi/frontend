@@ -1,2 +1,65 @@
+v1.3.5
+- Android & iOS builds
+
+v1.3.4
+- Remove specified landscape resources in config.xml & updated versions
+- Added package-lock.json to .gitignore
+- Fixed a problem with statusbar
+- Fixed userOrder
+- Trim user preventing wrong email submits
+- Remove some useless piece of code at order-provider.ts
+
+v0.3.3
+- Fix a problem with fonts. Now are loading fine
+- Fix an issue with images in production. Not being found because of android assets path
+- Fix an issue with components, not being added
+- Rename the header of the nav from Menu to Sweetsuomi
+- Fix an issue with datetimes selector for date. Replace new Date for moment.
+- Some extra renamed titles
+- Fix an issue with shopping-cart component. It is now checking the closest end time by looking to the selected dishes. Before it was checking the closest time to now
+- Removed price at the beginning of shopping-cart since it is in the call to action button
+- Prevent for showing the dish in the menu 15 min before its time ends.
+- Remove some useless methods.
+- Fix an issue with datetime at shopping-cart
+
+v0.3.2
+- Fix admin orders screen
+
+v0.3.1
+- Fix an issue for what the server is not parsing into integer the time
+
+v0.3.0
+- Added schedules management support
+
+v0.2.0
+- Added send email to all users new functionality
+
+v0.1.0
+- Added statistics new functionality
+
+v0.0.6
+- Fix admin order page & admin order detail page
+- Refactor of components, removing globalProvider getter serverURL & cloudFrontURL
+
+v0.0.5
+- Refactor of Categories.
+
+v0.0.4
+- HTML refactor. Let create-dish like update-dish upload image
+- Remove ObjectKeys in categories & intolerances Select list of options
+- Remove some global variables that are not used at all
+
+v0.0.3
+- Fixed an issue for what images were not being refreshed after updating the dish image
+- Fixed an issue for what dish & update dish images were loaded from cloudfront and sometimes, it was getting cached.
+- Fixed an issue for what intolerances were not being setup correctly
+- Fixed an issue for what multipart FormData was not creating its own debounce.
+- Added some global variables depending of the environment
+- Fix an issue for what infinite scrolling wasn't stacking dishes
+- Fix an issue with intolerances for what it wasn't calling its endpoint properly
+
+v0.0.2
+- Remove package.lock.json
+
 v0.0.1
 - Client setup

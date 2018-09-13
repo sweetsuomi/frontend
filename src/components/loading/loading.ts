@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { LoadingController } from 'ionic-angular';
 
 @Component({
-  selector: 'loading'
+  selector: 'loading',
+  template: ''
 })
 
 export class LoadingComponent {

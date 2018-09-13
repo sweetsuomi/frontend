@@ -1,5 +1,5 @@
+package-lock.json
 .sourcemaps
 node_modules
 plugins
 www
-resources

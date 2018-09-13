@@ -14,7 +14,7 @@ export class UserProvider {
 		private http: Http,
 		private globalProvider: GlobalProvider
 	) {
-		this.serverURL = this.globalProvider.getServerURL();
+		this.serverURL = this.globalProvider.serverURL;
 		this.user = {
 			nickname: '',
 			phone: '',
@@ -67,7 +67,7 @@ export class UserProvider {
 
 	private requestHeaders() {
 		let headers = new Headers();
-    	headers.append('Content-Type', 'application/json');
+		headers.append('Content-Type', 'application/json');
 		return new RequestOptions({ headers: headers });
 	}
 

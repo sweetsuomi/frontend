@@ -1,6 +1,6 @@
 {
   "name": "sweetsuomi",
-  "version": "0.0.2",
+  "version": "1.3.6",
   "author": "DevStarlight",
   "contributors": [
     "Jubelie <bea_jb@hotmail.es> (http://jubelie.com)"
@@ -67,5 +67,8 @@
       "ios",
       "browser"
     ]
+  },
+  "config": {
+    "ionic_purge_unused_fonts": false
   }
 }
