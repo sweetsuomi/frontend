@@ -1,2 +1,3 @@
-v1.3.5
-- Android & iOS builds
+v1.3.6
+- Increase the amount of time the user can pick a dish (30 min before the schedule end, the dish will not be available)
+- Setup global variables
