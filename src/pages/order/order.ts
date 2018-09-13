@@ -6,8 +6,7 @@ import { GlobalProvider } from '../../providers/global-provider';
 // import { MenuProvider } from '../../providers/menu-provider';
 import { OrderProvider } from '../../providers/order-provider';
 // import { ToastComponent } from '../../components/toast/toast';
-import * as moment from 'moment';
-import 'moment-timezone';
+import moment from 'moment';
 
 @IonicPage()
 @Component({
